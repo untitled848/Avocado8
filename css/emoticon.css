@@ -1,0 +1,38 @@
+
+body{
+    padding: 10px;
+}
+#emoticon_page{
+    padding-bottom:20px;
+    width:100%;
+}
+#page_title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:50px;
+}
+#emoticon_content ul{
+    display: grid;
+    grid-template-columns: repeat(5, calc(20% - 3px));
+    gap: 3px;
+    justify-content: center;
+    align-items: center;
+    padding:  10px;
+}
+
+#emoticon_content ul li{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#emoticon_content ul li img{
+    max-width: 50px;
+    max-height: 50px;    
+}
+#emoticon_content ul li span{
+    line-height:1.5em;
+}

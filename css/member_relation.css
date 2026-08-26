@@ -1,0 +1,61 @@
+
+/******************************************
+	관계란 스타일
+*******************************************/
+
+.relation-member-list				{ position: relative; }
+.relation-member-list > li			{ position:relative; padding-left: 90px; min-height:120px; margin-bottom: 20px; }
+.relation-member-list .ui-thumb		{ position: absolute; top: 0; left: 0; width: 80px; overflow: hidden; }
+.relation-member-list .rm-name		{ font-size: 14px; font-weight: 800; padding-right: 150px; padding-left: 10px; }
+
+.relation-member-list .rm-like-style				{ position: absolute; right: 0; top: 0;width: 80px; }
+.relation-member-list .rm-like-style i				{ display: block; width: 13px; height: 15px; position: relative; float: left; margin: 0 1px;}
+.relation-member-list .rm-like-style i:before		{ content: "\e9da"; font-family: 'icon'; font-style: normal; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; font-family: 'icon'; }
+.relation-member-list .memo			{ padding:10px; margin: 5px 0; line-height: 1.2em; min-height: 30px; }
+
+.relation-member-list ol			{ display: block; position: relative; clear: both; text-align: right;padding-right: 10px; }
+.relation-member-list ol li					{ display: inline-block; }
+.relation-member-list ol li a.btn-log		{ display: block; position: relative; width: 20px; height: 20px; margin: 0 auto; }
+.relation-member-list ol li a.btn-log:before	{ content: "\e925"; font-family: 'icon'; font-size: 15px; font-style: normal; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; font-family: 'icon'; }
+
+.relation-member-list .modify-box						{ display: none; }
+.relation-member-list .state-modify						{ }
+.relation-member-list .state-modify .rm-like-style,
+.relation-member-list .state-modify .memo .ori-content,
+.relation-member-list .state-modify ol					{ display: none; }
+.relation-member-list .state-modify .modify-box			{ display: block; }
+
+
+@media all and (max-width: 500px) {
+	.relation-member-list .rm-name			{ padding-right: 0; font-size: 13px; }
+	.relation-member-list .rm-like-style	{ position: relative; width: auto;overflow: hidden; }
+	
+	.relation-member-list > li		{ padding-left:0px; }
+	.relation-member-list .ui-thumb	{ width: 50px; }
+	.relation-member-list .info		{ min-height: 62px; margin-left: 60px; }
+}
+
+/******************************************
+관계 수정 모달
+*******************************************/
+.rm-modal{ position:fixed; inset:0; display:none; z-index:9999; }
+.rm-modal.rm-modal-open{ display:block; }
+.rm-modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.55); }
+.rm-modal-dialog{ position:relative; max-width:520px; width:92%; margin:60px auto 0; background:#fff; padding:20px; border-radius:6px; box-shadow:0 6px 24px rgba(0,0,0,.25); max-height:85vh; overflow:auto; }
+.rm-modal-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.rm-modal-title{ margin:0; font-size:16px; }
+.rm-modal-close{ min-width:36px; }
+.rm-modal-actions{ display:flex; gap:8px; margin-top:10px; }
+.rm-form-table{ width:100%; }
+.rm-form-table th{ text-align:left; padding:6px 8px; vertical-align:top; white-space:nowrap; }
+.rm-form-table td{ padding:6px 8px; }
+.rm-form-table .full{ width:100%; box-sizing:border-box; }
+
+/* 관계 수정 입력 보조 */
+.rm-chapter-row{ margin-top:6px; }
+.rm-chapter-row label{ display:inline-flex; align-items:center; gap:4px; font-size:13px; }
+.rm-chapter-textarea{ display:none; width:100%; box-sizing:border-box; margin-top:4px; }
+.rm-chapter-textarea.is-on{ display:block; }
+
+.relation-box details{ padding: 10px; padding-top: 40px; position: relative;}
+.relation-box summary{ margin-bottom: 10px; position: absolute; right: 10px; top: 0;}

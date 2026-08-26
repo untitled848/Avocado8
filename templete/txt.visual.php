@@ -1,0 +1,1 @@
+<?php echo display_banner('basic', true, 'slide', '5000', 'default', true, '700')?>

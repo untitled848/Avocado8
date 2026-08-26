@@ -1,0 +1,416 @@
+@charset "utf-8";
+/* -----------------------------------------------
+	* 사이트 전체 기본 스타일 정의
+--------------------------------------------------
+	- 최초 작성일 :2021.08.15
+	- 최초 작성자 :아보카도
+	- 최종 수정일 :
+	- 최종 수정자 :
+--------------------------------------------------*/
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-display: swap;
+}
+/*********************************
+	기본 스타일
+**********************************/
+*{
+	font-family: 'Pretendard';
+}
+html,
+body {height:100%;}
+
+body  {line-height:1.5em; font-size:12px;}
+caption {display:none;}
+html.single:before {content:""; display:block; position:fixed; top:0; left:0; right:0; bottom:0; z-index:-1;}
+
+
+/*********************************
+	폼 요소 스타일
+**********************************/
+
+button {font-size:12px;}
+.form-input {display:block; line-height:30px !important;}
+input[type="file"] {padding-left:0 !important;}
+
+.form-input,
+input[type="text"],
+input[type="password"],
+input[type="file"],
+input[type="number"],
+select {box-sizing:border-box; height:30px; border-width:1px; border-style:solid; padding:0 10px; max-width:100%; font-size:12px; line-height:1.2;}
+
+.form-input,
+input[type="text"].full,
+input[type="password"].full,
+input[type="file"].full,
+input[type="number"].full,
+select.full {width:100%;}
+
+textarea {box-sizing:border-box; border-width:1px; border-style:solid; padding:5px; width:100%; min-height:50px; font-size:12px; resize:none;}
+
+
+/*********************************
+	Ajax 검색 리스트
+**********************************/
+
+.ajax-list-box {height:100px; overflow-y:auto; margin-top:10px; padding:5px;}
+.ajax-list-box ul,
+.ajax-list-box li {display:block; margin:0; padding:0; position:relative;}
+.ajax-list-box li {margin-bottom:5px;}
+.ajax-list-box li a {display:block; position:relative; padding:10px; border-radius:3px; text-decoration:none; font-size:12px;}
+.ajax-list-box li a .ui-thumb {position:absolute; top:10px; left:10px; width:30px; height:30px; line-height:30px; overflow:hidden; text-align:center;}
+.ajax-list-box li a .ui-thumb img {max-width:100%;}
+.ajax-list-box li a .ui-info {margin-left:40px;}
+.ajax-list-box .no-data {line-height:50px; text-align:center; margin-top:10px;}
+
+
+/* hr.line / hr.padding 구조는 /css/preset.css 로 이전됨 */
+
+#bo_v_img img {height:auto !important;}
+
+
+/**************************************************************
+	버튼  — .ui-btn 구조/기본 룰은 /css/preset.css 로 이전됨
+***************************************************************/
+
+
+/**************************************************************
+	기본박스 / 테이블  — .theme-box / table / .theme-form / .theme-list 구조는 /css/preset.css 로 이전됨
+***************************************************************/
+.board-notice {
+    width: 264px;
+    padding: 10px;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/**************************************************************
+	도움말 정보
+**************************************************************/
+
+.frm_info {display:block; font-size:12px; padding:0 0 8px 0; opacity:.7;}
+.status-bar .frm_info {padding:0;}
+
+
+/**************************************************************
+	Status Bar
+***************************************************************/
+
+.status-bar {display:block;}
+.status-bar dl,
+.status-bar dd,
+.status-bar dt {margin:0; padding:0;}
+.status-bar dl {display:block; position:relative; margin:1px 0; padding-left:100px; line-height:28px;}
+.status-bar dt {position:absolute; top:0; left:0;}
+.status-bar dd p {position:relative;}
+.status-bar dd p span {display:block; position:absolute; top:0; left:0; bottom:0; z-index:0;}
+.status-bar dd p sup {display:block; position:absolute; top:0; left:0; bottom:0; z-index:0;}
+.status-bar dd p i {display:block; position:relative; padding-left:5px; font-size:11px; z-index:1;}
+
+/** Bar Control 추가 **/
+.status-bar dl.ui-control {padding-right:60px;}
+.status-bar dl dd.control {display:block; position:absolute; top:0; bottom:0; right:0; width:60px;}
+.status-bar dl dd.control a {display:block; position:relative; width:50%; float:left; margin:0; padding:0; text-indent:-999px; overflow:hidden;}
+.status-bar dl dd.control a:before  {content:""; display:block; position:absolute; top:0; left:0; right:0; bottom:0; text-indent:0; text-align:center; font-family:'icon';}
+.status-bar dl dd.control a + a {border-left-width:0;}
+.status-bar dl dd.control a[data-function="plus"]:before {content:'\ea0a';}
+.status-bar dl dd.control a[data-function="minus"]:before {content:'\ea0b';}
+
+
+/**************************************************************
+	배경음악 이퀄라이저 효과
+***************************************************************/
+
+html.single .bgm-player {display:none !important;}
+
+.bgm-player {text-align:center;}
+.bgm-player .title {display:inline-block; vertical-align:middle; line-height:30px; font-size:13px;}
+.bgm-player ul {display:inline-block; vertical-align:middle; margin-left:10px;}
+.bar-equalizer {display:inline-block; vertical-align:middle; position:relative; width:90px; height:25px; margin:0 auto; overflow:hidden; text-align:center; box-sizing:border-box; margin-left:15px;}
+.bar-equalizer i {display:block; float:left; width:1px; margin-right:2px; border-radius:5px; margin-top:15px; transform:translateY(-50%); transition:height 0.3s linear; -webkit-transition:height 0.3s linear;}
+.bgm-player li {display:inline-block;}
+.bgm-player li a {display:block; position:relative; width:100%; height:100%; line-height:27px; text-align:left; text-indent:-999px; overflow:hidden;}
+.bgm-player li a:before {content:""; display:block; position:absolute; top:0; left:0; right:0; bottom:0; text-indent:0; text-align:center; font-family:'icon'; font-size:12px;}
+.bgm-player li a.play:before {content:"\ea1c";}
+.bgm-player li a.stop:before {content:"\ea1e";}
+
+
+/*******************************************
+	헤더 레이아웃
+********************************************/
+
+/** 디자인 설정 안할 시 */
+#no_design_gnb {padding:20px 0; text-align:center; line-height:1.5em;}
+#no_design_gnb li {display:block; margin-bottom:20px;}
+
+.close-header #header {width:0px !important;}
+.close-header #body {margin-left:0 !important;}
+.close-header body {min-width:0;}
+
+@media all and (max-width:1000px)  {
+	.close-header #header {width:auto !important;}
+}
+
+#header .fix-layout {padding:0;}
+#logo img {max-width:225px;}
+
+/** 모바일 헤더 레이아웃 */
+@media all and (max-width:1024px)  {
+	body {width:100%;}
+	#logo {
+		padding:0 52px;
+		z-index:0;
+		top:auto;
+		left:auto;
+		transform:translateX(0) translateY(0);
+		position:relative;
+		text-align:center;
+		height:50px;
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		box-sizing:border-box;
+	}
+	#logo a {display:flex; align-items:center; justify-content:center; max-width:100%; height:100%;}
+	#logo img {max-width:100%; max-height:36px; width:auto; height:auto;}
+	#body {margin-left:0px;padding:0px;padding-top: 50px;}
+
+	/* 헤더 위치 */
+	#header .fix-layout {padding:0;}
+	#header {position:fixed; top:0; left:0; right:0; bottom:auto; z-index:999; width:auto; height:50px; overflow:visible;}
+
+	/* 메인메뉴 */
+	#gnb {
+		position:fixed;
+		top:0;
+		right:calc(-1 * min(80vw, 300px));
+		bottom:0;
+		width:min(80vw, 300px);
+		z-index:999;
+		overflow-y:auto;
+		-webkit-overflow-scrolling:touch;
+		box-sizing:border-box;
+	}
+	#gnb_control_box {position:absolute; top:50%; margin-top:-20px; right:10px; width:40px; height:40px; border-radius:100%; text-align:center;}
+	#gnb_control_box:before {content:""; display:inline-block; width:0; height:100%; vertical-align:middle;}
+	#gnb_control_box img {display:inline-block; max-width:50%; max-height:50%; vertical-align:middle; margin-left:-12%; opacity:1;}
+
+	/* 메뉴 열고 닫기 */
+	#gnb_control_box,
+	#gnb_control_box *  {transition:all 0s ease; -webkit-transition:all 0s ease; -ms-transition:all 0s ease;}
+
+	/* 메뉴 열렸을 시 */
+	.open-gnb #gnb {right:0;}
+	.open-gnb #gnb_control_box {position:fixed; top:0; left:0; right:0; bottom:0; z-index:99; background:rgba(0, 0, 0, 0.5); border-radius:0; width:auto; height:auto;}
+	.open-gnb #gnb_control_box img {opacity:0;}
+
+	#no_design_gnb {padding:12px 0 32px; text-align:left; line-height:1.4;}
+	#no_design_gnb li {margin-bottom:0;}
+	#no_design_gnb li a {display:block; padding:14px 20px; font-size:15px;}
+}
+
+/**************************************************************
+	탭 설정
+***************************************************************/
+
+#tab_list {display:block; position:relative; overflow:hidden; border-bottom-width:2px; border-bottom-style:solid;}
+#tab_list li {display:block; position:relative; float:left;}
+#tab_list li a {display:block; position:relative; border-bottom-width:0;}
+#tab_list li + li a {border-left-width:0px;}
+
+
+/**************************************************************
+	페이지 설정
+***************************************************************/
+
+.pg_wrap {display:block; position:relative; text-align:center; padding:20px 0;}
+.pg_wrap .pg_page {display:inline-block; position:relative; height:30px; line-height:28px; min-width:30px; box-sizing:border-box; padding:0 5px; font-size:13px; text-align:center; vertical-align:middle; border-width:1px; border-style:solid;}
+.pg_wrap .pg_control {overflow:hidden; text-align:left; text-indent:-999px;}
+.pg_wrap .pg_control:before {font-family:'icon'; display:block; position:absolute; top:0; left:0; right:0; bottom:0; text-indent:0; text-align:center; font-size:14px;}
+.pg_wrap .pg_start,
+.pg_wrap .pg_end {display:none;}
+.pg_wrap .pg_prev:before {content:"\ea23";}
+.pg_wrap .pg_next:before {content:"\ea24";}
+
+
+/****************************************************
+	Search Box
+****************************************************/
+
+.searc-sub-box {position:relative; clear:both; padding:30px 0px;}
+.ui-search-box {position:relative; padding-left:100px; padding-right:80px; margin-top:5px;}
+.ui-search-box .sch_category {position:absolute; top:0; left:0; width:95px; line-height:30px;}
+.ui-search-box .sch_button {position:absolute; top:0; right:0; width:75px;}
+.ui-search-box span {display:block; padding:0 15px;}
+.ui-search-box select,
+.ui-search-box input[type="text"],
+.ui-search-box button {display:block; width:100%;}
+
+
+/****************************************************
+	인벤토리 팝업 뷰  — 구조 룰은 /css/preset.css 로 이전됨.
+	                  여기서는 프론트 전용 보강만 둡니다.
+****************************************************/
+.inven-popup-viewer { display:none; position:fixed; top:50%; left:50%; margin-left:-150px; margin-top:-185px; z-index:9000; }
+
+
+/****************************************************
+	인벤토리 스타일  — .inventory-list / .item-box 구조 룰은 /css/preset.css 로 이전됨
+****************************************************/
+
+.title-list {display:block; position:relative; padding:20px 0;}
+.title-list p {padding:5px;}
+.title-list .item {display:inline-block; min-width:25%; padding: 5px; box-sizing:border-box; text-align:left; vertical-align:middle;}
+
+
+/****************************************************
+	Top 버튼
+****************************************************/
+
+#goto_top {position:fixed; right:0; bottom:0; z-index:50;}
+@media all and (max-width:580px)  {#goto_top  {width:50px;}}
+
+
+/****************************************************
+	서브메뉴 레이아웃
+****************************************************/
+
+#submenu {display:block; position:relative; text-align:center;}
+#submenu li {display:inline-block; vertical-align:middle; font-size:13px; font-weight:600; padding:8px 10px;}
+#subpage {margin-top:20px;}
+#subpage section {padding-bottom:50px;}
+
+@media all and (max-width:1024px)  {
+	#submenu {margin:0 -10px;}
+	#submenu li {padding:5px; font-size:12px;}
+	#subpage {margin-left:0;}
+}
+
+
+/****************************************************
+	페이지 타이틀
+****************************************************/
+
+.page-title {font-size:18px; padding:10px 0 20px;}
+.page-title span {font-size:14px; opacity:.8; font-weight:400;}
+
+.sub-title {font-size:14px; padding:0 0 10px;}
+.sub-title:before {content:"\e906"; display:inline-block; vertical-align:middle; font-family:'icon'; margin-right:8px;}
+
+
+/****************************************************
+	알람 팝업
+****************************************************/
+
+.ui-memo-alram-box,
+.ui-call-alram-box {display:none; position:fixed; top:0; left:0; right:0; z-index:999; text-align:center;}
+
+
+/****************************************************
+	마퀴 (우 ▶ 좌) 흐름
+****************************************************/
+
+.marquee span {display:block; position:relative; overflow:hidden;}
+.marquee span i:after {content:""; white-space:nowrap; padding-right:50px;}
+ .marquee span i {margin:0; padding-left:100%; display:inline-block; white-space:nowrap;
+	-webkit-animation-name:marquee;
+	-webkit-animation-timing-function:linear;
+	-webkit-animation-duration:10s;
+	-webkit-animation-iteration-count:infinite;
+	-moz-animation-name:marquee;
+	-moz-animation-timing-function:linear;
+	-moz-animation-duration:10s;
+	-moz-animation-iteration-count:infinite;
+	-ms-animation-name:marquee;
+	-ms-animation-timing-function:linear;
+	-ms-animation-duration:10s;
+	-ms-animation-iteration-count:infinite;
+	-o-animation-name:marquee;
+	-o-animation-timing-function:linear;
+	-o-animation-duration:10s;
+	-o-animation-iteration-count:infinite;
+	animation-name:marquee;
+	animation-timing-function:linear;
+	animation-duration:10s;
+	animation-iteration-count:infinite;
+}
+@-webkit-keyframes marquee  {
+	from    {-webkit-transform:translate(0%);}
+	99%,to  {-webkit-transform:translate(-100%);}
+}
+@-moz-keyframes marquee  {
+	from    {-moz-transform:translate(0%);}
+	99%,to  {-moz-transform:translate(-100%);}
+}
+@-ms-keyframes marquee  {
+	from    {-ms-transform:translate(0%);}
+	99%,to  {-ms-transform:translate(-100%);}
+}
+@-o-keyframes marquee  {
+	from    {-o-transform:translate(0%);}
+	99%,to  {-o-transform:translate(-100%);}
+}
+@keyframes marquee  {
+	from    {transform:translate(0%);}
+	99%,to  {transform:translate(-100%);}
+}

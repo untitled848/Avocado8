@@ -1,0 +1,59 @@
+@charset "utf-8";
+/* -----------------------------------------------
+	* avo8 세계관 공유 프리셋 (World Preset)
+--------------------------------------------------
+	* 세계관 페이지 (/world) 와 관리자 미리보기 (.wd-sample-host)
+	  양쪽에서 동일하게 보여야 하는 "구조" 룰만 모았습니다.
+	* 색/배경/테두리색 등 디자인 설정에서 제어하는 속성은
+	  여기 두지 마세요. — css/world_design.php 가 책임.
+--------------------------------------------------*/
+
+
+/* === Wrapper / 위치 === */
+.world-wrap { display:flex; width:100%; box-sizing:border-box; }
+.world-wrap--top    { flex-direction: column; }
+.world-wrap--bottom { flex-direction: column-reverse; }
+.world-wrap--left   { flex-direction: row; }
+.world-wrap--right  { flex-direction: row-reverse; }
+
+/* 메뉴를 .world-content 내부로 이동 (menu_pos_in === 'inside', 상/하만 적용) */
+.world-wrap--menu-inside .world-content { display:flex; flex-direction:column; }
+.world-wrap--menu-inside.world-wrap--top    .world-content > .world-menu { order:-1; }
+.world-wrap--menu-inside.world-wrap--bottom .world-content > .world-menu { order:99; }
+
+
+/* === 메뉴 영역 구조 === */
+.world-menu { box-sizing:border-box; }
+
+/* sticky — 상/하 위치 */
+.world-wrap--top .world-menu,
+.world-wrap--bottom .world-menu { position:sticky; top:0; z-index:100; width:100%; }
+.world-wrap--bottom .world-menu { top:auto; bottom:0; }
+
+/* sticky — 좌/우 위치 */
+.world-wrap--left .world-menu,
+.world-wrap--right .world-menu { position:sticky; top:0; align-self:flex-start; max-height:100vh; overflow-y:auto; }
+
+
+/* === 가로 메뉴 (.world-menu--horizontal) — 메인 행 + 서브 행 분리 === */
+.world-menu--horizontal .world-menu-main-row { display:flex; flex-wrap:wrap; width:100%; }
+.world-menu--horizontal .world-menu-sub-row  { display:block; width:100%; }
+.world-menu--horizontal .world-menu-main-item { display:inline-block; vertical-align:top; }
+.world-menu--horizontal .world-menu-sub-wrap  { display:flex; flex-wrap:wrap; }
+
+
+/* === 세로 메뉴 (.world-menu--vertical) — 메인 아래 자체 서브 === */
+.world-menu--vertical .world-menu-main-item { display:block; }
+.world-menu--vertical .world-menu-sub-wrap  { display:block; }
+.world-menu--vertical .world-menu-sub       { display:block; }
+
+
+/* === 메뉴 아이템 기본 구조 === */
+.world-menu-main { display:inline-block; text-decoration:none; box-sizing:border-box; }
+.world-menu-sub  { display:inline-block; text-decoration:none; box-sizing:border-box; }
+
+
+/* === 콘텐츠 영역 === */
+.world-content { flex:1; min-width:0; box-sizing:border-box; }
+.world-content h3 { margin:0 0 8px 0; font-size:18px; }
+.world-content p  { line-height:1.7; margin:0 0 10px; }

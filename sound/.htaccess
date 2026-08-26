@@ -1,0 +1,4 @@
+# 알림음 공개 접근 허용
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>

@@ -1,0 +1,188 @@
+@charset "utf-8";
+/* -----------------------------------------------
+	* avo8 공유 프리셋 (Preset)
+--------------------------------------------------
+	* 프론트(/css/style.css) 와 관리자 미리보기(/adm/css/admin.css)
+	  양쪽에서 동일하게 보여야 하는 "구조" 룰만 모았습니다.
+	* 색/배경/테두리색 등 디자인 설정에서 제어하는 속성은
+	  여기 두지 마세요. 디자인 DB의 cs_value 가 비었을 때를 위한
+	  fallback 은 adm/design_form_css.php 에서 처리합니다.
+--------------------------------------------------*/
+
+/* (디자인 설정 변수는 css/_design.config.css 에서 정의) */
+
+/****************************************************
+	기본 라인 / 구분선
+****************************************************/
+hr.line { display:block; position:relative; clear:both; margin:10px 0; border:none; padding:0; height:1px; }
+hr.padding { display:block; clear:both; margin:0; padding:0; border:none; height:30px; }
+hr.padding.small { height:5px; }
+
+
+/****************************************************
+	기본 박스 (.theme-box)  — 색/배경/테두리는 디자인 설정에서 제어
+****************************************************/
+.theme-box { display:block; position:relative; padding:10px; box-sizing:border-box; }
+
+
+/****************************************************
+	테이블 / 폼 (.theme-form / .theme-list)  — 색은 디자인 설정에서 제어
+****************************************************/
+table { width:100%; padding:0; border-spacing:0; border:0; border-collapse:collapse; table-layout:fixed; }
+th, td { border:none; }
+
+.theme-form td { padding:5px; height:30px; }
+.theme-form th { padding:5px 10px; }
+.theme-form .frm_info { display:block; font-size:12px; padding:0 0 8px 0; }
+
+.theme-list { table-layout:fixed; }
+.theme-list thead th { height:30px; }
+.theme-list td { padding:5px; height:30px; }
+.theme-list td.no-data { padding:5px; text-align:center; line-height:200px; }
+
+
+/****************************************************
+	버튼 (.ui-btn)  — 색/배경/테두리는 디자인 설정에서 제어
+	  주: .ui-btn.admin / .ui-btn.ico.del 은 시스템 표시이므로 색을 보존
+****************************************************/
+.ui-btn { display:inline-block; position:relative; text-align:center; border-width:1px; border-style:solid; vertical-align:middle; height:28px; padding:0 15px; box-sizing:border-box; cursor:pointer; }
+a.ui-btn { line-height:26px; }
+.ui-btn.small { height:25px; line-height:23px; font-size:12px; }
+.ui-btn.full { width:100%; }
+.ui-btn.admin { background:#8c1e1e; color:#fff; border-color:#691010; }
+.ui-btn.disable { opacity:.3; }
+.ui-btn.ico { width:15px; height:15px; text-align:left; line-height:15px; padding:0; font-size:11px; overflow:hidden; text-indent:-999px; }
+.ui-btn.ico.default { width:28px; height:28px; line-height:28px; }
+.ui-btn.ico:before { display:block; position:absolute; top:0; left:0; right:0; bottom:0; text-align:center; text-indent:0; font-family:'icon'; }
+.ui-btn.ico.big { width:40px; height:40px; line-height:40px; font-size:18px; }
+.ui-btn.ico.circle { border-radius:9em; }
+.ui-btn.ico.del { background:#a40000; color:#fff; border:none; border-radius:2px; margin-left:5px; }
+.ui-btn.ico.del:before { content:"\e9ac"; }
+.ui-btn.ico.camera:before { content:"\e90f"; }
+.ui-btn.ico.search:before { content:"\e986"; }
+.ui-btn.ico.exp:before { content:"\e923"; }
+
+
+/****************************************************
+	인벤토리 팝업 뷰 (.inven-popup-viewer)
+****************************************************/
+
+.inven-popup-viewer,
+.inven-popup-viewer * { -webkit-transition:none; -moz-transition:none; -ms-transition:none; -o-transition:none; }
+.inven-popup-viewer .ajax-list-box { height:auto; padding:5px; font-size:11px; word-break:keep-all; line-height:1.5; }
+.inven-popup-viewer { width:300px; height:370px; padding:25px 40px; box-sizing:border-box; }
+.inven-item-box { position:relative; margin-right:25px; padding-left:25px; border-right-width:0px; }
+.inven_popup_viewer_close { display:none; }
+.inven-popup-on .inven_popup_viewer_close { display:block; position:fixed; top:0; left:0; right:0; bottom:0; z-index:8900; -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); }
+.inven_popup_viewer_close a { display:block; position:absolute; top:0; left:0; right:0; bottom:0; overflow:hidden; text-indent:-999px; }
+
+.inven-popup-viewer .inner-content { position:relative; height:100%; }
+.inven-popup-viewer .inner-content .error { position:absolute; top:0; left:0; right:0; text-align:center; line-height:100px; }
+
+.inven-popup-viewer .info { position:relative; text-align:center; padding:15px 0; }
+.inven-popup-viewer .info .item-box { display:inline-block; }
+.inven-popup-viewer .info .ui-thumb img { width:50px; height:50px; }
+
+.inven-popup-viewer .text { position:relative; }
+.inven-popup-viewer .text .title { font-size:14px; text-align:center; margin-bottom:10px; padding-bottom:10px; }
+.inven-popup-viewer .text .title span { display:none; }
+
+.inven-popup-viewer .text .item-content-box { height:170px; overflow-y:auto; }
+.inven-popup-viewer .text .item-content-box div { line-height:1.4em; text-align:center; }
+
+.inven-popup-viewer .text div.effect { padding-top:15px; }
+.inven-popup-viewer .text div.memo { padding-top:15px; }
+
+.inven-popup-viewer .control-box { clear:both; position:relative; padding:10px 0 0; text-align:center; }
+.inven-popup-viewer .control-box li { display:inline-block; }
+.inven-popup-viewer .control-box li a { display:block; }
+
+.inven-popup-viewer .add-item-reuse { position:relative; margin-top:10px; margin-bottom:8px; }
+.inven-popup-viewer .add-item-reuse select { width:100%; box-sizing:border-box; }
+
+.inven-popup-viewer .add-item-form { position:relative; height:30%; margin-top:10px; }
+.inven-popup-viewer .add-item-form[hidden] { display:none; }
+.inven-popup-viewer .add-item-form .item-info { position:relative; margin-bottom:5px; }
+.inven-popup-viewer .add-item-form .item-info span { display:block; font-size:11px; padding-top:8px; }
+.inven-popup-viewer .add-item-form input { width:100%; box-sizing:border-box; }
+.inven-popup-viewer .add-item-form .item-input { position:relative; margin-bottom:5px; }
+.inven-popup-viewer .add-item-form .ui-style-btn.type4 { position:absolute; right:87px; bottom:-44px; height:25px; line-height:25px; }
+
+.inven-popup-viewer .send-item-form { position:relative; height:30%; }
+.inven-popup-viewer .send-item-form input,
+.inven-popup-viewer .send-item-form select { width:100%; box-sizing:border-box; }
+.inven-popup-viewer .send-item-form input { padding:0 10px; }
+.inven-popup-viewer .send-item-form .item-input { position:relative; margin-bottom:5px; }
+.inven-popup-viewer .send-item-form .ui-style-btn.type4 { position:absolute; right:87px; bottom:-44px; height:25px; line-height:25px; }
+
+
+/****************************************************
+	인벤토리 아이템 박스 (.item-box)  — 색/테두리는 디자인 설정에서 제어
+****************************************************/
+.item-box { width:var(--inv-item-size, 50px); height:var(--inv-item-size, 50px); position:relative; box-sizing:border-box; }
+.item-box a.inven-open-popup { width:100%; height:100%; display:flex; justify-content:center; align-items:center; position:relative; }
+.item-box a { display:block; position:relative; width:40px; height:40px; overflow:hidden; }
+.item-box a img { display:block; position:relative; margin:0 auto; }
+.item-box a i { display:block; position:absolute; right:1px; bottom:1px; min-width:15px; height:15px; line-height:15px;  text-align:center; z-index:2; box-sizing:border-box; border:none !important; }
+.item-box a i.present:before { content:"\e99f"; font-family:'icon'; font-weight:400; }
+
+
+/****************************************************
+	인벤토리 리스트 (.inventory-list)
+****************************************************/
+.inventory-list {position: relative; overflow: hidden; display: grid; grid-template-columns: repeat(auto-fit, var(--inv-item-size, 50px)); gap: 5px; align-items: center; align-content: center;}
+
+
+/****************************************************
+	로드비 액션 박스 (.log-action-box)  — 색/배경/테두리는 디자인 설정에서 제어
+****************************************************/
+.log-action-box { position:relative;margin-bottom:10px; }
+.log-action-box.item-in{ padding-left:70px; min-height:60px; }
+.log-action-box em { display:block; position:absolute; width:60px; height:60px; overflow:hidden; top:0; left:0; }
+.log-action-box p { padding:10px 0; }
+.log-action-box p span { display:block; }
+
+#log_list .item .item-inner .co-header p,
+#log_list .item .item-inner .co-header p a,	
+#log_list .item .item-inner .co-header p strong{
+	display:inline-flex;
+	justify-content:start;
+	align-items:center;
+	flex-wrap:wrap;
+	gap:3px;
+}
+
+/* ============================================================
+   타이틀 박스 (.title-box)
+   ============================================================ */
+
+
+.title-box{display: inline-flex;position:relative;text-align:center;justify-content: center;align-items: center;pointer-events:none;}
+.title-box .title-text{color:black; font-weight:normal; font-size:12px; font-style:normal; line-height:1.2;} 
+.title-box.type-both .title-text{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);height: initial!important;}
+
+/* ============================================================
+   관리자 상태 배너 (#admin-status-banner)
+   ============================================================ */
+#admin-status-banner {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 99999;
+	padding: 7px 16px;
+	font-size: 13px;
+	text-align: center;
+	line-height: 1.6;
+	border-bottom: 2px solid;
+}
+#admin-status-banner.asb-time  { background: #fff3cd; border-color: #f0ad4e; }
+#admin-status-banner.asb-mode  { background: #e7f3ff; border-color: #5b9dd9; }
+#admin-status-banner.asb-both  { background: #f5f0ff; border-color: #9b7ec8; }
+#admin-status-banner .asb-time-text { color: #7a4a00; }
+#admin-status-banner .asb-mode-text { color: #1a4870; }
+#admin-status-banner .asb-ov   { color: #c0392b; }
+#admin-status-banner .asb-real { color: #0a7; }
+#admin-status-banner .asb-sep  { color: #bbb; }
+#admin-status-banner .asb-link { color: #06c; text-decoration: underline; }
+

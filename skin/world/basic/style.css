@@ -1,0 +1,40 @@
+/* skin/world/basic/style.css */
+.world-wrap { display: flex; width: 100%; box-sizing: border-box; }
+.world-wrap--top    { flex-direction: column; }
+.world-wrap--bottom { flex-direction: column-reverse; }
+.world-wrap--left   { flex-direction: row; }
+.world-wrap--right  { flex-direction: row-reverse; }
+
+/* sticky */
+.world-wrap--top .world-menu,
+.world-wrap--bottom .world-menu { position: sticky; top: 0; z-index: 100; width: 100%; }
+.world-wrap--left .world-menu,
+.world-wrap--right .world-menu  {
+    position: sticky; top: 0; align-self: flex-start;
+    max-height: 100vh; overflow-y: auto; min-width: 160px;
+}
+
+/* 가로 배열 (상/하) */
+.world-wrap--top .world-menu-main-item,
+.world-wrap--bottom .world-menu-main-item { display: inline-block; }
+.world-wrap--top .world-menu-sub-wrap,
+.world-wrap--bottom .world-menu-sub-wrap  { display: flex; flex-wrap: wrap; width: 100%; }
+
+/* 세로 배열 (좌/우) */
+.world-wrap--left .world-menu-main-item,
+.world-wrap--right .world-menu-main-item { display: block; }
+
+/* content */
+.world-content { flex: 1; min-width: 0; box-sizing: border-box; }
+
+
+/* 이미지 메뉴 hover 전환 */
+.wm-img-h { display: none; }
+.world-menu-main:not(.wm-no-hover):hover .wm-img-d,
+.world-menu-main.active:not(.wm-no-hover) .wm-img-d { display: none; }
+.world-menu-main:not(.wm-no-hover):hover .wm-img-h,
+.world-menu-main.active:not(.wm-no-hover) .wm-img-h { display: inline-block; }
+.world-menu-sub:not(.wm-no-hover):hover .wm-img-d,
+.world-menu-sub.active:not(.wm-no-hover) .wm-img-d  { display: none; }
+.world-menu-sub:not(.wm-no-hover):hover .wm-img-h,
+.world-menu-sub.active:not(.wm-no-hover) .wm-img-h { display: inline-block; }

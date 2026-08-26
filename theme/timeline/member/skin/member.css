@@ -1,0 +1,849 @@
+
+@font-face {
+    font-family: 'KimJeongCheolHandwriting';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
+    font-weight: 300;
+    font-display: swap;
+}
+:root {
+    --bg-overlay: rgba(245, 239, 232, 0.36);
+    --black: rgb(142 121 106);
+    --black-transparent-0: #00000000;
+    --black-transparent-50: rgba(108 ,99 ,77, 0.5);
+    --black-transparent-60: rgb(108 ,99 ,77, .6);
+    --black-transparent-90: rgba(108 ,99 ,77, 0.9);
+    --deep-navy: #2d2825;
+    --panel-bg: #f7f4f1;
+    --panel-bg-light: #fdfaf7;
+    --panel-border: #6c5b4f;
+    --panel-border-soft: rgba(69, 53, 45, 0.15);
+    --panel-button-bg: #cabeb2;
+    --panel-button-hover: #d9c3af;
+    --panel-text: #523929;
+    --panel-text-soft: rgba(31, 30, 28, 0.72);
+    --panel-text-muted: #685e57;
+    --panel-card: rgba(234, 223, 214, 0.78);
+    --panel-card-soft: rgba(238, 232, 225, 0.72);
+    --panel-scroll: #b89a85;
+    --panel-shadow: rgba(114, 96, 79, 0.14);
+    --panel-shadow-soft: rgba(114, 96, 79, 0.12);
+    --text-shadow-red: #ffffff;
+    --text-shadow-dark: #e5d9ce;
+    --link-hero: #6c7c74;
+    --link-red: #8d6a59;
+    --white: #ffffff;
+    --white-soft: rgba(255, 255, 255, 0.28);
+    --white-subtle: rgba(255, 255, 255, 0.5);
+    --white-ghost: rgba(255, 255, 255, 0.08);
+    --soft-gray: #5d514c;
+    --gray-line: #b4a296;
+    --scroll-track: rgba(184, 154, 133, 0.18);
+    --glow-pink: rgba(173, 148, 126, 0.38);
+    --title-color: #8a644a;
+}
+
+#body{
+    margin-top:0;
+    padding:0;
+}
+
+.fix-layout{ max-width:none !important;}
+
+html {
+	overflow-y: hidden;
+}
+
+
+div{
+    box-sizing:border-box;
+}
+
+.background{
+    FONT-VARIANT: JIS90;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(./img/ui/bg.png);
+    background-position: center bottom;
+    background-repeat:repeat-x;
+    background-size: auto;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index: 0;
+    overflow:hidden;
+    pointer-events:none;
+    background-color: rgb(209 200 190);
+    z-index: 1000;
+}
+.background::before{
+    content:'';
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    bottom:0;
+    background-color: var(--bg-overlay);
+    z-index: -1;
+}
+.back-btn{
+    position:fixed;
+    top:12px;
+    left:10px;
+    pointer-events:all;
+    z-index:100000;
+}
+
+.prof-area{
+    width: 100vw;
+    height: 100vh;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+    overflow:hidden;
+    font-family:"Galmuri9";
+    color:white;
+    font-size:13px;
+    background-image: url(./img/ui/line.png);
+    background-position: center 95%;
+    background-repeat: repeat-x;
+}
+
+.cha-area{
+    width: 100vw;
+    height: 100vh;
+    display:flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-image: url(./img/ui/profile_back.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+
+}   
+.cha-area .body-area{
+    z-index:1;
+    width: 100%;
+    height:100%;
+    overflow:auto;
+    pointer-events:all;
+    text-align: center;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+}
+.cha-area .body-area img{
+    max-width:800px;
+    margin-top:20px;
+    width:auto;
+    height:auto;
+    object-fit: contain;
+}
+.cha-area.is-short .body-area{
+    align-items:center;
+    justify-content:center;
+}
+.cha-area.is-short .body-area img{
+    margin-top:0;
+}
+.cha-area.is-short .body-area::-webkit-scrollbar {
+    display:none;
+}
+
+.info-area.front{
+    z-index:2;
+}
+
+.cha-area .info-area{
+    position:absolute;
+    width: 80%;
+    height: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.cha-area .info-area .axis{
+    width:742px;
+    height:315px;
+    position:relative;
+}
+
+.axis .name-area{
+    position:absolute;
+    top:-80px;
+    left:-40px;
+    text-align:left;
+    font-family:"Nanum Myeongjo";
+    font-size:75px;
+    font-weight:900;
+    color: var(--title-color);
+    text-shadow: -4px 4px #6f5a4d;
+    -webkit-text-stroke: 1px #ffffff;
+}
+
+.axis .enname-area{
+    position:absolute;
+    top:-120px;
+    left:-10px;
+    font-family: 'Mrs Saint Delafield', cursive;
+    font-size:240px;
+    color:var(--white-soft);
+}
+
+.ability-area{
+    position:absolute;
+    top:80%;
+    left:-20px;
+    min-height:50px;
+    min-width:240px;
+    max-width:90%;
+    font-family:"Gowun Batang";
+    font-size:14px;
+    color:#b4b4b4;
+    text-align:right;
+}
+
+.ability-area .info-name{
+    position:absolute;
+    top:-55px;
+    left:-20px;
+    font-family: 'Mrs Saint Delafield', cursive;
+    font-size:120px;
+    color:var(--white-soft);
+}
+.axis .default-area, .info-box .info-name{
+    position:absolute;
+    color: var(--title-color);
+    font-family: 'Mrs Saint Delafield', cursive;
+    right:20px;
+    top:-10px;
+    font-size:24px;
+    text-shadow:
+    -1px -1px 0 var(--text-shadow-red),
+    1px -1px 0 var(--text-shadow-red),
+    -1px 1px 0 var(--text-shadow-red),
+    1px 1px 0 var(--text-shadow-red);
+}
+
+
+.axis .info-box{
+    box-sizing: border-box;
+    position:absolute;
+    width:235px;
+    height:auto;
+    min-height:153px;
+    background-color: var(--panel-card);
+    border: 1px solid var(--panel-border-soft);
+    font-size: 12px;
+    padding:20px;
+    color: #614939;
+    backdrop-filter: blur(5px);
+    font-family: 'KimJeongCheolHandwriting';
+    line-height:1.5em;
+}
+
+.axis .info-box::before{
+    content:"";
+    width:100%;
+    height:100%;
+    box-sizing: border-box;
+    border:30px solid transparent;
+    border-image:url(./img/ui/border.png) 30;
+    position:absolute;
+    top:0;
+    left:0;
+   
+}
+
+.axis .info-box.pers{
+    top:20px;
+    left:-90px;
+}
+
+.axis .info-box.appr{
+    top:50px;
+    right:-70px;
+}
+
+.axis .word-area{
+position:absolute;
+bottom:-100px;
+left:50%;
+transform:translateX(-50%);
+background:linear-gradient(to left,var(--black-transparent-0), var(--black-transparent-50), var(--black-transparent-60), var(--black), var(--black-transparent-60), var(--black-transparent-50),var(--black-transparent-0));
+font-family:"Nanum Myeongjo";
+height:60px;
+width:100%;
+display:flex;
+justify-content: center;
+align-items: center;
+font-size:26px;
+line-height:1.1em;
+overflow:hidden;
+font-style:italic;
+text-shadow: 1px 1px 7px var(--glow-pink);
+text-align:center;
+}
+
+.axis .info-box.etc{
+    top:180px;
+    right:-180px;
+}
+
+
+.axis .info-box.status{
+    top: 250px;
+    left: -110px;
+    min-height:60px;
+    width:260px;
+    padding:5px;
+}
+
+
+.axis .info-box.status .lv-area{
+   width:95%;
+   margin:0px auto;
+   display:flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center; 
+}
+
+.axis .info-box.status .lv-area .lv span{
+    font-weight:600;
+}
+    
+.axis .info-box.status .lv-area .lv-bar{
+    width:70%;
+    margin:0px 5px;
+    height:5px;
+    background-color: var(--black);
+    overflow:hidden;
+    position:relative;
+}
+
+.axis .info-box.status .stat-area{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+}
+
+.axis .info-box.status .stat-area li{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    margin:5px;
+}
+
+.axis .info-box.status .stat-area li.line{
+width:1px;
+height:100%;
+background-color: var(--white-subtle);
+}
+
+.axis .info-box.status .stat-area li span{
+    font-weight:600;
+}
+
+.bottom-area{
+    position:absolute;
+    bottom:0;
+    right:20px;
+    width:400px;
+    height:auto;
+    z-index:2;
+    pointer-events: all;
+}
+
+.bottom-area .tag-row {
+    position: absolute;
+    right: 20px;
+    top: -26px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 6px;
+    max-width: calc(100% - 20px);
+    pointer-events: all;
+}
+.bottom-area .tag-row .time-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 6px;
+    margin: 0 !important;
+    text-align: left !important;
+}
+.bottom-area .tag-row .time-tabs:empty {
+    display: none;
+}
+.bottom-area .tag-row .time-tabs .ui-btn {
+    height: auto;
+    line-height: 1.2;
+    margin: 0 !important;
+    padding: 5px 8px 2px 8px;
+    font-family: 'Nanum Myeongjo';
+    font-size: 14px;
+    border: 1px solid var(--panel-border);
+    background-color: var(--panel-card);
+    color: var(--panel-text);
+    box-shadow: -5px -3px 2px 3px var(--panel-shadow-soft);
+    box-sizing: border-box;
+    border-radius: 5px 5px 0 0;
+    text-decoration: none;
+}
+.bottom-area .tag-row .time-tabs .ui-btn.point {
+    background-color: var(--panel-border);
+    color: var(--white);
+}
+.bottom-area .tag {
+    font-family: 'Nanum Myeongjo';
+    font-size: 16px;
+    border: 1px solid var(--panel-border);
+    background-color: var(--panel-border);
+    color: var(--white);
+    box-shadow: -5px -3px 2px 3px var(--panel-shadow-soft);
+    box-sizing: border-box;
+    padding: 5px 8px 2px 8px;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.detail-area{
+    height: 50px;
+    max-height: 50px;
+    background-color: var(--panel-bg);
+    border-radius:10px 10px 0 0;
+    border:1px solid var(--panel-border);
+    border-bottom:0px;
+    box-shadow: -5px -5px 2px 3px var(--panel-shadow-soft);
+    overflow:hidden;
+    padding:10px 20px;
+    transition: max-height 0.35s ease, height 0.35s ease;
+    will-change: max-height, height;
+}
+
+.detail-area.is-open{
+    height: 400px;
+    max-height: 400px;
+}
+
+.detail-area .detail-inner{
+    width: 100%;
+    min-height: 0;
+    position: relative;
+    height: 100%;
+}
+
+.detail-area .menu-area{
+    position: relative;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.detail-area .det_btn{
+    box-sizing:border-box;
+    width:30px;
+    height:30px;
+    padding:4px;
+    margin:0 3px;
+    color:var(--panel-text-soft);
+    cursor:pointer;
+    background-color: var(--panel-button-bg);
+    border-radius:5px;
+}
+
+.detail-area .det_btn:hover{
+    color:var(--white);
+    background-color: var(--panel-button-hover);
+}
+.detail-area .det_btn.det_tab{
+    width: auto;
+    min-width: 30px;
+    padding: 4px 8px;
+    border: 0;
+    font-size: 12px;
+    line-height: 22px;
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.detail-area .menu-name{
+position:absolute;
+top:10px;
+left:0px;
+font-family: 'Mrs Saint Delafield', cursive;;
+font-size:32px;
+color:var(--panel-text-soft);
+font-style:italic;
+}
+
+.tab-area{
+    width:100%;
+    min-height:0;
+    padding-top:10px;
+    padding-bottom:30px;
+    height: 100%;
+    /* overflow: auto; */
+}
+
+.tab-area .detprof-area{
+    width:100%;
+    height:auto;
+    min-height:0;
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow:auto;
+    height: 100%;
+    /* padding: 0 3px; */
+}
+.detprof-area .box{
+    width:95%;
+    height:auto;
+    margin: 5px auto 30px auto;
+    background-color: var(--panel-card-soft);
+    border: 1px solid var(--panel-border-soft);
+    color:var(--panel-text);
+    border-radius:10px;
+    box-sizing: border-box;
+    padding:20px 10px;
+    line-height:1.5em;
+}
+
+.detprof-area .name{
+    width:100%;
+    height:auto;
+    color: var(--title-color);
+    font-size: 14px;
+    text-shadow:
+    -1px -1px 0 var(--text-shadow-red),
+    1px -1px 0 var(--text-shadow-red),
+    -1px 1px 0 var(--text-shadow-red),
+    1px 1px 0 var(--text-shadow-red);
+    font-family:'Nanum Myeongjo';
+    font-weight:900;
+}
+
+.detprof-area .name.codename{
+    font-size:20px;
+    font-family: 'Nanum Myeongjo';
+    margin-bottom:10px;
+    margin-top: 10px;
+    color: var(--title-color);
+    text-align: right;
+    padding-right: 10px;
+}
+
+.detprof-area .name.realname{
+    color:var(--soft-gray);
+    text-shadow:
+    -1px -1px 0 var(--text-shadow-dark),
+    1px -1px 0 var(--text-shadow-dark),
+    -1px 1px 0 var(--text-shadow-dark),
+    1px 1px 0 var(--text-shadow-dark);
+    margin-bottom:20px;
+    padding:0 10px 10px 10px;
+    border-bottom:1px solid var(--gray-line);
+
+}
+
+.detprof-area::-webkit-scrollbar {
+    width: 4px;  /* Ã¬Å Â¤Ã­ÂÂ¬Ã«Â¡Â¤Ã«Â°â€Ã¬ÂËœ Ã«â€žË†Ã«Â¹â€ž */
+}
+
+.detprof-area::-webkit-scrollbar-thumb {
+    height: 30%; /* Ã¬Å Â¤Ã­ÂÂ¬Ã«Â¡Â¤Ã«Â°â€Ã¬ÂËœ ÃªÂ¸Â¸Ã¬ÂÂ´ */
+    background: var(--panel-scroll); /* Ã¬Å Â¤Ã­ÂÂ¬Ã«Â¡Â¤Ã«Â°â€Ã¬ÂËœ Ã¬Æ’â€°Ã¬Æ’Â */
+    border-radius: 10px;
+}
+
+.detprof-area::-webkit-scrollbar-track {
+    background: var(--scroll-track);  /*Ã¬Å Â¤Ã­ÂÂ¬Ã«Â¡Â¤Ã«Â°â€ Ã«â€™Â· Ã«Â°Â°ÃªÂ²Â½ Ã¬Æ’â€°Ã¬Æ’Â*/
+}
+
+#goto_top{
+    display:none !important;
+}
+
+.detprof-area .statarea.box{
+    display:flex;
+    flex-direction:column;
+    padding:5px;
+    max-width:320px;
+    border-radius:5px;
+}
+
+.detprof-area .stat-area{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;  
+    margin-top:5px;
+}
+
+
+.detprof-area .stat-area li{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    margin:5px;
+}
+
+.detprof-area .stat-area li.line{
+width:1px;
+height:100%;
+background-color: var(--white-subtle);
+}
+
+.detprof-area .stat-area li span{
+    font-weight:600;
+}
+
+
+.detprof-area .statarea .lv-area{
+    width:95%;
+    margin:5px auto;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; 
+ }
+ 
+ .detprof-area .statarea .lv-area .lv span{
+     font-weight:600;
+ }
+     
+ .detprof-area .statarea .lv-area .lv-bar{
+     width:70%;
+     margin:0px 5px;
+     height:5px;
+     background-color: #000;
+     overflow:hidden;
+     position:relative;
+ }
+ 
+ .detprof-area .statarea .lv-area .lv-bar span, .axis .info-box.status .lv-area .lv-bar span{
+    position:absolute;
+    left:0;
+    top:0;
+    height:100%;
+    width:50%;
+    background-color: var(--panel-border);
+ }
+
+/*--------------------Ã¬ÂÂ¸Ã«Â²Â¤----------------*/
+
+
+.detprof-area .box.inven-area{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
+    align-items: center;
+    width:90%;
+    height:auto;
+    border-radius:5px;
+    margin:10px auto 10px auto;
+    padding:10px 10px;
+    margin-bottom:25px;
+}
+
+.detprof-area .box.inven-area .inventory-list{
+    display:flex;
+    flex-direction:row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap:wrap;
+}
+
+.detprof-area .box.inven-area .inventory-list .box-line{
+    border:1px solid transparent !important;
+    max-width:32px;
+    position:relative;    
+}
+
+.detprof-area .box.inven-area .inventory-list .box-line a{
+    border:1px solid transparent !important;
+}
+
+.detprof-area .box.inven-area .inventory-list .box-line img{
+    max-width:32px;
+}
+
+.detprof-area .box.inven-area .inventory-list .box-line i{
+    border:1px solid transparent !important;
+    position:absolute;
+    bottom:2px;
+    right:0;
+    padding-left:2px;
+    padding-right:2px;
+    border-radius:3px;
+}
+
+/*--------------------Ã¬ÂÂ¸Ã«Â²Â¤----------------*/ 
+
+/*--------------------ÃªÂ´â‚¬ÃªÂ³â€ž----------------*/ 
+.detprof-area .box.relation{
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    align-items: center;
+    height:auto;
+    margin:10px auto 10px auto;
+    padding:0px 10px 10px 10px;
+    margin-bottom:25px;
+}
+
+.detprof-area .box.relation .relation-area .r-info-area .r-like .r-name{
+    font-weight:500;
+    font-family:"Galmuri9";
+    font-size:11px;
+    background-color: var(--link-red);
+    /*rgb(36, 113, 143);*/
+}
+
+.detprof-area .box.relation .relation-area .r-memo-area .r-thumb{
+    height: 50px;
+    overflow:hidden;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--black);
+    border-color:var(--link-red);
+}
+
+.detprof-area .box.relation .relation-area .r-memo-area .r-memo{
+    min-height:45px;
+    border-color:var(--link-red);
+}
+
+.detprof-area .box.relation .relation-area .r-link .r-link-list a:link{
+    color: var(--link-red) !important;
+}
+
+
+.detprof-area .box.relation .relation-area.hero .r-info-area .r-like .r-name{
+    background-color: var(--link-hero);
+   
+}
+
+.detprof-area .box.relation .relation-area.hero .r-memo-area .r-thumb{
+    border-color:var(--link-hero);
+}
+
+.detprof-area .box.relation .relation-area.hero .r-memo-area .r-memo{
+    border-color:var(--link-hero);
+}
+
+.detprof-area .box.relation .relation-area.hero .r-link .r-link-list a:link{
+    color: var(--link-hero) !important;
+}
+
+/*--------------------ÃªÂ´â‚¬ÃªÂ³â€ž----------------*/
+
+.stat-radar-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.stat-radar-svg .grid {
+    fill: none;
+    stroke: var(--panel-border);
+    stroke-opacity: 0.35;
+    stroke-width: 1;
+}
+.stat-radar-svg .value {
+    fill: rgba(138, 100, 74, 0.38);
+    stroke: var(--title-color);
+    stroke-width: 1;
+    stroke-linejoin: round;
+}
+.stat-radar-svg .label-name {
+    fill: var(--panel-text);
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 7px;
+    font-weight: 700;
+}
+.detprof-area .stat-radar-box {
+    padding: 8px;
+}
+.stat-radar-fallback {
+    width: 100%;
+}
+.stat-bar-row {
+    margin-bottom: 8px;
+}
+.stat-bar-row .n {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--panel-text);
+}
+.stat-bar-row p {
+    margin: 4px 0 0;
+    height: 6px;
+    background: var(--scroll-track);
+    overflow: hidden;
+}
+.stat-bar-row p span {
+    display: block;
+    height: 100%;
+    background: var(--title-color);
+}
+
+.inventory-list, .relation-box{
+    width:100%;
+}
+@media all and (max-width: 500px){
+    .axis .info-box, .prof-area.h .axis .info-box{
+        display:none;
+    }
+    .bottom-area{
+        right:0px;
+        width:100%;
+        padding:0 10px;
+    }     
+    .axis .word-area{
+        bottom:-30px;
+        font-size:20px;
+    }
+    
+    .cha-area .body-area img{
+        max-width:100%;
+    }
+    .bottom-area .tag-row {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    .bottom-area .tag-row .time-tabs {
+        position: fixed;
+        top: 12px;
+        left: 48px;
+        right: 10px;
+        z-index: 100001;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .bottom-area .tag-row .time-tabs .ui-btn {
+        font-size: 13px;
+        padding: 4px 8px 2px;
+        box-shadow: none;
+    }
+
+}

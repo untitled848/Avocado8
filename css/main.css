@@ -1,0 +1,181 @@
+@charset "utf-8";
+/* -----------------------------------------------
+	* 메인 화면 스타일 정의
+--------------------------------------------------
+	- 최초 작성일 : 2021.08.15
+	- 최초 작성자 : 아보카도
+	- 최종 수정일 : 2026.08.26
+	- 최종 수정자 :
+--------------------------------------------------*/
+
+/****************************************************
+	메인 레이아웃
+****************************************************/
+
+/* FOUC 방지 — JS 비활성/지연시에도 보이도록 fallback 처리 */
+#body { opacity: 1; transition: opacity .2s ease; }
+
+#main_body {
+	min-width: 0;
+	max-width: 100%;
+	overflow-x: hidden;
+	word-break: break-word;
+	overflow-wrap: break-word;
+}
+#main_body img,
+#main_body video {
+	max-width: 100%;
+	height: auto;
+}
+#main_body iframe {
+	max-width: 100%;
+}
+#main_body table {
+	max-width: 100%;
+}
+
+#no_design_main {
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		"visual visual"
+		"notice side"
+		"copy copy";
+	gap: 20px;
+	padding: 50px 0;
+	align-items: start;
+}
+
+
+/****************************************************
+	메인 슬라이드 배너
+****************************************************/
+
+#main_visual_box {
+	grid-area: visual;
+	min-height: 0;
+	background: transparent;
+	overflow: hidden;
+}
+#main_visual_box:has(img) {
+	min-height: 100px;
+}
+#main_visual_box img {
+	width: 100%;
+	height: auto;
+	display: block;
+	vertical-align: top;
+}
+
+
+/****************************************************
+	메인 이미지 박스
+****************************************************/
+
+#main_image_box {
+	position: relative;
+	min-height: 260px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+/****************************************************
+	메인 공지사항 박스
+****************************************************/
+
+#main_notice_box {
+	grid-area: notice;
+	position: relative;
+	min-height: 0;
+	max-height: 400px;
+	line-height: 1.5;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	height:100%;
+}
+
+
+/****************************************************
+	메인 우측 박스 (로그인 / 일반)
+****************************************************/
+
+#main_side_box {
+	grid-area: side;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	min-width: 0;
+}
+#main_login_box { margin-bottom: 0; }
+#main_banner_box {
+	padding: 20px;
+	text-align: center;
+	box-sizing: border-box;
+	min-width: 0;
+}
+#main_banner_box img { max-width: 100%; height: auto; }
+#main_banner_box p,
+#main_banner_box a {
+	overflow-wrap: anywhere;
+	word-break: break-all;
+}
+
+
+/****************************************************
+	메인 카피라이터
+****************************************************/
+
+#main_copyright_box {
+	grid-area: copy;
+	display: block;
+	position: relative;
+	text-align: center;
+}
+
+
+/****************************************************
+	반응형 스타일
+****************************************************/
+
+@media all and (max-width:1024px)  {
+	#no_design_main {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			"visual"
+			"side"
+			"notice"
+			"copy";
+		gap: 12px;
+		padding: 12px 0 24px;
+	}
+
+	#main_image_box,
+	#main_notice_box,
+	#main_side_box {
+		width: 100%;
+		float: none;
+		height: auto;
+		min-height: 0;
+		max-height: none;
+		margin: 0;
+	}
+
+	#main_notice_box {
+		max-height: min(50vh, 360px);
+	}
+
+	#main_banner_box {
+		height: auto;
+		padding: 16px 12px;
+	}
+}
+
+@media all and (max-width:480px)  {
+	#no_design_main { gap: 10px; padding: 8px 0 20px; }
+	#main_banner_box { padding: 12px 10px; }
+}

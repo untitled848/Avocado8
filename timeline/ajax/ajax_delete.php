@@ -1,0 +1,33 @@
+<?php
+/**
+ * 타임라인 글 삭제 AJAX
+ * 게시판 호환 구조
+ */
+
+require_once(__DIR__.'/../_common.php');
+
+$my_ch_id = ses($character, 'ch_id', 0, 'int');
+
+header('Content-Type: application/json; charset=utf-8');
+
+if (!$is_member || !$my_ch_id) {
+    echo json_encode(array('success' => false, 'message' => '로그인이 필요합니다.'));
+    exit;
+}
+
+$wr_id = ses($_POST, 'wr_id', 0, 'int');
+
+// 기존 tl_id 호환
+if (!$wr_id) {
+    $wr_id = ses($_POST, 'tl_id', 0, 'int');
+}
+
+if (!$wr_id) {
+    echo json_encode(array('success' => false, 'message' => '잘못된 요청입니다.'));
+    exit;
+}
+
+$is_admin_user = ($is_admin);
+$result = delete_timeline_post($tl_table, $wr_id, $my_ch_id, $is_admin_user);
+
+echo json_encode($result);

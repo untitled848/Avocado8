@@ -1,0 +1,48 @@
+# DB 접속 정보 (절대 커밋 금지)
+data/dbconfig.php
+
+# 런타임 생성 데이터 (data/ 폴더는 data/.gitignore 에서 이미 제외됨)
+# 별도로 data/ 하위 특정 파일을 추적하고 싶을 때 data/.gitignore 수정
+
+# 런타임 데이터 전부 (설치 시 재생성). .htaccess 만 추적
+data/*
+!data/.htaccess
+
+# 업로드·캐시 (data/* 로 이미 제외, 명시)
+data/file/
+data/thumb/
+data/editor/
+data/cache/
+
+# 로그·세션·임시
+data/log/
+data/session/
+data/tmp/
+data/*.log
+*.log
+
+# OS 생성 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# AGENTS & TOOLS
+.cursor
+.github
+.tools
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# 분석/작업 임시 파일 (프로젝트 루트)
+php8_raw_findings.json
+php8_work.json
+results.json
+summary.json
+summary_out.json
+transcript_parsed.json
+_tmp_*.html
+_scan_*.php
+_tmp_*.html

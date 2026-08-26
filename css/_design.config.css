@@ -1,0 +1,552 @@
+@charset "utf-8";
+/***************************************************************
+	avo8 디자인 설정 — 정적 CSS (root 변수 기반)
+---------------------------------------------------------------
+	* 모든 색/배경/테두리/반경/폰트 설정은
+	  /css/root.php?pd_id=N 가 emit 한 :root 의 --d-* 변수를 참조한다.
+	* 더 이상 프리셋마다 별도 파일을 생성할 필요가 없다.
+	  (레거시: data/css/_design.config.*.css 는 deprecated)
+
+	규약:
+	  --d-{cs_name}        ← cs_value      (보통 0번 슬롯/주값)
+	  --d-{cs_name}-1..10  ← cs_etc_1..10  (보조 슬롯)
+	  --d-{cs_name}-side-(top|right|bottom|left)
+	      ← cs_etc_5 의 방향 리스트가 분해되어 1 로 emit 됨
+
+	border 패턴:
+	  border-{side}-width: calc(var(--d-{name}-side-{side}, 0) * var(--d-{name}-4, 0) * 1px);
+	  border-{side}-style: var(--d-{name}-3, solid);
+	  border-{side}-color: var(--d-{name}-2, transparent);
+***************************************************************/
+
+/* 비-디자인 정적 변수 (preset.css 에서 이전) */
+:root {
+  --inv-item-size: 50px; /* 인벤토리 .item-box / .inventory-list grid 공통 크기 */
+}
+*{font-family:var(--d-font_default, inherit);}
+
+/****************************************************
+	기본 폰트 색상
+****************************************************/
+body,
+.txt-default	{ color: var(--d-color_default, inherit); }
+a,
+.txt-point		{ color: var(--d-color_point, inherit); }
+.se2_inputarea{color:black;background-color:white;}
+
+/****************************************************
+	기본 사이트 배경 (html.single:before)
+	  PC / 모바일 분기는 cs_name=background / m_background 두 슬롯을 그대로 사용.
+****************************************************/
+@media all and (min-width: 1025px) {
+	html.single:before {
+		background-image:		var(--d-background-img, none);
+		background-color:		var(--d-background-1, transparent);
+		background-repeat:		var(--d-background-2, no-repeat);
+		background-position:	var(--d-background-3, center);
+		background-size:		var(--d-background-4, cover);
+		background-attachment:	var(--d-background-5, scroll);
+	}
+}
+@media all and (max-width: 1024px) {
+	html.single:before {
+		background-image:		var(--d-m_background-img, none);
+		background-color:		var(--d-m_background-1, transparent);
+		background-repeat:		var(--d-m_background-2, no-repeat);
+		background-position:	var(--d-m_background-3, center);
+		background-size:		var(--d-m_background-4, cover);
+		background-attachment:	var(--d-m_background-5, scroll);
+	}
+}
+
+
+/****************************************************
+	HEADER / GNB
+****************************************************/
+@media all and (min-width: 1025px) {
+	#header	{
+		background-image:		var(--d-header_background-img, none);
+		background-color:		var(--d-header_background-1, transparent);
+		background-repeat:		var(--d-header_background-2, no-repeat);
+		background-position:	var(--d-header_background-3, center);
+		background-size:		var(--d-header_background-4, cover);
+		background-attachment:	var(--d-header_background-5, scroll);
+	}
+	#gnb	{
+		background-image:		var(--d-menu_background-img, none);
+		background-color:		var(--d-menu_background-1, transparent);
+		background-repeat:		var(--d-menu_background-2, no-repeat);
+		background-position:	var(--d-menu_background-3, center);
+		background-size:		var(--d-menu_background-4, cover);
+		background-attachment:	var(--d-menu_background-5, scroll);
+	}
+	#gnb_control_box { display:none; }
+}
+@media all and (max-width: 1024px) {
+	#header	{
+		background-image:		var(--d-m_header_background-img, none);
+		background-color:		var(--d-m_header_background-1, transparent);
+		background-repeat:		var(--d-m_header_background-2, no-repeat);
+		background-position:	var(--d-m_header_background-3, center);
+		background-size:		var(--d-m_header_background-4, cover);
+		background-attachment:	var(--d-m_header_background-5, scroll);
+	}
+	#gnb	{
+		background-image:		var(--d-m_menu_background-img, none);
+		background-color:		var(--d-m_menu_background-1, transparent);
+		background-repeat:		var(--d-m_menu_background-2, no-repeat);
+		background-position:	var(--d-m_menu_background-3, center);
+		background-size:		var(--d-m_menu_background-4, cover);
+		background-attachment:	var(--d-m_menu_background-5, scroll);
+	}
+	#gnb_control_box { display:block; }
+}
+
+#gnb,
+#gnb *	{
+	color: var(--d-menu_text, inherit);
+	font-size: calc(var(--d-menu_text-1, 14) * 1px);
+}
+#gnb a:hover {
+	color: var(--d-menu_text-2, inherit);
+	font-size: calc(var(--d-menu_text-3, 14) * 1px);
+}
+
+
+/****************************************************
+	스크롤 / 마우스 드래그 블록 색상
+****************************************************/
+*::-webkit-scrollbar-track	{ background-color: var(--d-color_bak, transparent); }
+*::-webkit-scrollbar-thumb	{ background: var(--d-color_point, currentColor); }
+
+* { outline-color: var(--d-color_point, invert); }
+::selection			{ background: var(--d-color_point, highlight); color: var(--d-color_bak, highlighttext); }
+::-moz-selection	{ background: var(--d-color_point, highlight); color: var(--d-color_bak, highlighttext); }
+
+
+/****************************************************
+	버튼 (.ui-btn / .ui-btn.point / .ui-btn.etc)
+	  슬롯: [0]=color, [1]=bg, [2]=border  /  [3]=hover-color, [4]=hover-bg, [5]=hover-border
+****************************************************/
+.ui-btn	{
+	color:			var(--d-btn_default, inherit);
+	background:		var(--d-btn_default-1, transparent);
+	border-color:	var(--d-btn_default-2, transparent);
+}
+.ui-btn:hover	{
+	color:			var(--d-btn_default-3, inherit);
+	background:		var(--d-btn_default-4, transparent);
+	border-color:	var(--d-btn_default-5, transparent);
+}
+.ui-btn.point	{
+	color:			var(--d-btn_point, inherit);
+	background:		var(--d-btn_point-1, transparent);
+	border-color:	var(--d-btn_point-2, transparent);
+}
+.ui-btn.point:hover	{
+	color:			var(--d-btn_point-3, inherit);
+	background:		var(--d-btn_point-4, transparent);
+	border-color:	var(--d-btn_point-5, transparent);
+}
+.ui-btn.etc	{
+	color:			var(--d-btn_etc, inherit);
+	background:		var(--d-btn_etc-1, transparent);
+	border-color:	var(--d-btn_etc-2, transparent);
+}
+.ui-btn.etc:hover	{
+	color:			var(--d-btn_etc-3, inherit);
+	background:		var(--d-btn_etc-4, transparent);
+	border-color:	var(--d-btn_etc-5, transparent);
+}
+.swiper-pagination-bullet-active { background: var(--d-btn_point-4, var(--d-color_point, currentColor)); }
+
+
+/****************************************************
+	페이징 (.pg_wrap)
+****************************************************/
+.pg_wrap .pg_page	{
+	color:			var(--d-btn_default, inherit);
+	background:		var(--d-btn_default-1, transparent);
+	border-color:	var(--d-btn_default-2, transparent);
+}
+.pg_wrap .pg_page:hover	{
+	color:			var(--d-btn_default-3, inherit);
+	background:		var(--d-btn_default-4, transparent);
+	border-color:	var(--d-btn_default-5, transparent);
+}
+.pg_wrap .pg_current,
+.pg_wrap .pg_current:hover	{
+	color:			var(--d-btn_point, inherit);
+	background:		var(--d-btn_point-1, transparent);
+	border-color:	var(--d-btn_point-2, transparent);
+}
+
+
+/****************************************************
+	이퀄라이저 / 스테이터스바 / 구분선
+****************************************************/
+.bar-equalizer i	{
+	background: var(--d-equalizer, var(--d-color_point, currentColor));
+	-webkit-box-shadow: 0 0 3px 0 var(--d-equalizer-1, transparent);
+	-moz-box-shadow:    0 0 3px 0 var(--d-equalizer-1, transparent);
+	box-shadow:         0 0 3px 0 var(--d-equalizer-1, transparent);
+}
+
+.status-bar dd p			{ background: var(--d-color_default, currentColor); }
+.status-bar dd p span		{ background: var(--d-color_point, currentColor); opacity:.5; }
+.status-bar dd p sup		{ background: var(--d-color_point, currentColor); }
+.status-bar dd p i			{ color:      var(--d-color_bak, inherit); }
+
+hr.line { background: var(--d-color_point, currentColor); }
+
+
+/****************************************************
+	인풋 / 폼 컨트롤  (input_bak)
+	  슬롯: [0]=bg, [1]=color, [2]=border-color, [3..6]=radius(px) tl/tr/br/bl
+****************************************************/
+.form-input,
+input[type="file"],
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+	color:			var(--d-input_bak-1, inherit);
+	background:		var(--d-input_bak, transparent);
+	border-color:	var(--d-input_bak-2, transparent);
+	border-top-left-radius:		calc(var(--d-input_bak-3, 0) * 1px);
+	border-top-right-radius:	calc(var(--d-input_bak-4, 0) * 1px);
+	border-bottom-right-radius:	calc(var(--d-input_bak-5, 0) * 1px);
+	border-bottom-left-radius:	calc(var(--d-input_bak-6, 0) * 1px);
+}
+
+::-webkit-input-placeholder { color: var(--d-input_bak-1, inherit); }
+:-moz-placeholder			{ color: var(--d-input_bak-1, inherit); opacity:1; }
+::-moz-placeholder			{ color: var(--d-input_bak-1, inherit); opacity:1; }
+:-ms-input-placeholder		{ color: var(--d-input_bak-1, inherit); }
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+	background-color: var(--d-input_bak, transparent) !important;
+	color:            var(--d-input_bak-1, inherit);
+}
+
+
+/****************************************************
+	비주얼 슬라이드 페이징
+****************************************************/
+.flex-control-paging a				{ background: var(--d-color_default, currentColor); }
+.flex-control-paging a.flex-active	{ background: var(--d-color_point, currentColor); }
+
+
+/****************************************************
+	기본 박스 (.theme-box)  — box_style
+	  슬롯: [0]=bg, [1]=color, [2]=border-color, [3..6]=radius(px) tl/tr/br/bl
+****************************************************/
+.theme-box	{
+	background-color:	var(--d-box_style, transparent);
+	color:				var(--d-box_style-1, inherit);
+	border:	1px solid	var(--d-box_style-2, transparent);
+	border-top-left-radius:		calc(var(--d-box_style-3, 0) * 1px);
+	border-top-right-radius:	calc(var(--d-box_style-4, 0) * 1px);
+	border-bottom-right-radius:	calc(var(--d-box_style-5, 0) * 1px);
+	border-bottom-left-radius:	calc(var(--d-box_style-6, 0) * 1px);
+}
+.theme-box.no-link a { color: var(--d-box_style-1, inherit); }
+
+
+/****************************************************
+	인벤토리 팝업 뷰어 (.inven-popup-viewer)
+	  → 기본 박스 스타일 공유 + box_style 미지정 시 안전한 폴백
+****************************************************/
+.inven-popup-viewer {
+	background-color: var(--d-box_style, rgba(0,0,0,.5));
+	color:            var(--d-box_style-1, #eeeeee);
+	border:	1px solid var(--d-box_style-2, transparent);
+}
+
+
+/****************************************************
+	테이블 / 폼 (.theme-list / .theme-form)
+	  board_table / form_header / form_body / list_header / list_body
+	  공통 슬롯: [0]=bg, [1]=color, [2]=border-color, [3]=border-style, [4]=border-width(px), [5]=dir-list
+****************************************************/
+.theme-list,
+.theme-form {
+	background-color: var(--d-board_table, transparent);
+	color:            var(--d-board_table-1, inherit);
+
+	border-top-color:    var(--d-board_table-2, transparent);
+	border-top-style:    var(--d-board_table-3, solid);
+	border-top-width:    calc(var(--d-board_table-side-top, 0) * var(--d-board_table-4, 0) * 1px);
+	border-right-color:  var(--d-board_table-2, transparent);
+	border-right-style:  var(--d-board_table-3, solid);
+	border-right-width:  calc(var(--d-board_table-side-right, 0) * var(--d-board_table-4, 0) * 1px);
+	border-bottom-color: var(--d-board_table-2, transparent);
+	border-bottom-style: var(--d-board_table-3, solid);
+	border-bottom-width: calc(var(--d-board_table-side-bottom, 0) * var(--d-board_table-4, 0) * 1px);
+	border-left-color:   var(--d-board_table-2, transparent);
+	border-left-style:   var(--d-board_table-3, solid);
+	border-left-width:   calc(var(--d-board_table-side-left, 0) * var(--d-board_table-4, 0) * 1px);
+}
+
+/*** Form Area — form_header (TH) ***/
+.theme-form th, #submenu {
+	background-color: var(--d-form_header, transparent);
+	color:            var(--d-form_header-1, inherit);
+	border-top-color:    var(--d-form_header-2, transparent);
+	border-top-style:    var(--d-form_header-3, solid);
+	border-top-width:    calc(var(--d-form_header-side-top, 0) * var(--d-form_header-4, 0) * 1px);
+	border-right-color:  var(--d-form_header-2, transparent);
+	border-right-style:  var(--d-form_header-3, solid);
+	border-right-width:  calc(var(--d-form_header-side-right, 0) * var(--d-form_header-4, 0) * 1px);
+	border-bottom-color: var(--d-form_header-2, transparent);
+	border-bottom-style: var(--d-form_header-3, solid);
+	border-bottom-width: calc(var(--d-form_header-side-bottom, 0) * var(--d-form_header-4, 0) * 1px);
+	border-left-color:   var(--d-form_header-2, transparent);
+	border-left-style:   var(--d-form_header-3, solid);
+	border-left-width:   calc(var(--d-form_header-side-left, 0) * var(--d-form_header-4, 0) * 1px);
+}
+
+#submenu a{color:inherit;}
+
+/*** Form Area — form_body (TD) ***/
+.theme-form td {
+	background-color: var(--d-form_body, transparent);
+	color:            var(--d-form_body-1, inherit);
+	border-top-color:    var(--d-form_body-2, transparent);
+	border-top-style:    var(--d-form_body-3, solid);
+	border-top-width:    calc(var(--d-form_body-side-top, 0) * var(--d-form_body-4, 0) * 1px);
+	border-right-color:  var(--d-form_body-2, transparent);
+	border-right-style:  var(--d-form_body-3, solid);
+	border-right-width:  calc(var(--d-form_body-side-right, 0) * var(--d-form_body-4, 0) * 1px);
+	border-bottom-color: var(--d-form_body-2, transparent);
+	border-bottom-style: var(--d-form_body-3, solid);
+	border-bottom-width: calc(var(--d-form_body-side-bottom, 0) * var(--d-form_body-4, 0) * 1px);
+	border-left-color:   var(--d-form_body-2, transparent);
+	border-left-style:   var(--d-form_body-3, solid);
+	border-left-width:   calc(var(--d-form_body-side-left, 0) * var(--d-form_body-4, 0) * 1px);
+}
+
+/*** List Area — list_header (TH) ***/
+.theme-list th {
+	background-color: var(--d-list_header, transparent);
+	color:            var(--d-list_header-1, inherit);
+	border-top-color:    var(--d-list_header-2, transparent);
+	border-top-style:    var(--d-list_header-3, solid);
+	border-top-width:    calc(var(--d-list_header-side-top, 0) * var(--d-list_header-4, 0) * 1px);
+	border-right-color:  var(--d-list_header-2, transparent);
+	border-right-style:  var(--d-list_header-3, solid);
+	border-right-width:  calc(var(--d-list_header-side-right, 0) * var(--d-list_header-4, 0) * 1px);
+	border-bottom-color: var(--d-list_header-2, transparent);
+	border-bottom-style: var(--d-list_header-3, solid);
+	border-bottom-width: calc(var(--d-list_header-side-bottom, 0) * var(--d-list_header-4, 0) * 1px);
+	border-left-color:   var(--d-list_header-2, transparent);
+	border-left-style:   var(--d-list_header-3, solid);
+	border-left-width:   calc(var(--d-list_header-side-left, 0) * var(--d-list_header-4, 0) * 1px);
+}
+
+/*** List Area — list_body (TD) ***/
+.theme-list td {
+	background-color: var(--d-list_body, transparent);
+	color:            var(--d-list_body-1, inherit);
+	border-top-color:    var(--d-list_body-2, transparent);
+	border-top-style:    var(--d-list_body-3, solid);
+	border-top-width:    calc(var(--d-list_body-side-top, 0) * var(--d-list_body-4, 0) * 1px);
+	border-right-color:  var(--d-list_body-2, transparent);
+	border-right-style:  var(--d-list_body-3, solid);
+	border-right-width:  calc(var(--d-list_body-side-right, 0) * var(--d-list_body-4, 0) * 1px);
+	border-bottom-color: var(--d-list_body-2, transparent);
+	border-bottom-style: var(--d-list_body-3, solid);
+	border-bottom-width: calc(var(--d-list_body-side-bottom, 0) * var(--d-list_body-4, 0) * 1px);
+	border-left-color:   var(--d-list_body-2, transparent);
+	border-left-style:   var(--d-list_body-3, solid);
+	border-left-width:   calc(var(--d-list_body-side-left, 0) * var(--d-list_body-4, 0) * 1px);
+}
+
+
+/****************************************************
+	탭
+****************************************************/
+#tab_list { border-color: var(--d-btn_point-2, var(--d-color_point, currentColor)); }
+
+
+/****************************************************
+	mmb 게시판 (#load_log_board / #log_list / .board-notice)
+****************************************************/
+#load_log_board	{
+	background-image:		var(--d-mmb_contain_bak-img, none);
+	background-color:		var(--d-mmb_contain_bak-1, transparent);
+	background-repeat:		var(--d-mmb_contain_bak-2, no-repeat);
+	background-position:	var(--d-mmb_contain_bak-3, center);
+	background-size:		var(--d-mmb_contain_bak-4, cover);
+	background-attachment:	var(--d-mmb_contain_bak-5, scroll);
+}
+
+.board-notice	{
+	background-color:		var(--d-mmb_notice, transparent);
+	color:					var(--d-mmb_notice-1, inherit);
+	border-top-color:    var(--d-mmb_notice-2, transparent);
+	border-top-style:    var(--d-mmb_notice-3, solid);
+	border-top-width:    calc(var(--d-mmb_notice-side-top, 0) * var(--d-mmb_notice-4, 0) * 1px);
+	border-right-color:  var(--d-mmb_notice-2, transparent);
+	border-right-style:  var(--d-mmb_notice-3, solid);
+	border-right-width:  calc(var(--d-mmb_notice-side-right, 0) * var(--d-mmb_notice-4, 0) * 1px);
+	border-bottom-color: var(--d-mmb_notice-2, transparent);
+	border-bottom-style: var(--d-mmb_notice-3, solid);
+	border-bottom-width: calc(var(--d-mmb_notice-side-bottom, 0) * var(--d-mmb_notice-4, 0) * 1px);
+	border-left-color:   var(--d-mmb_notice-2, transparent);
+	border-left-style:   var(--d-mmb_notice-3, solid);
+	border-left-width:   calc(var(--d-mmb_notice-side-left, 0) * var(--d-mmb_notice-4, 0) * 1px);
+}
+
+#log_list	{
+	background-color: var(--d-mmb_list, transparent);
+	color:            var(--d-mmb_list-1, inherit);
+	border-top-color:    var(--d-mmb_list-2, transparent);
+	border-top-style:    var(--d-mmb_list-3, solid);
+	border-top-width:    calc(var(--d-mmb_list-side-top, 0) * var(--d-mmb_list-4, 0) * 1px);
+	border-right-color:  var(--d-mmb_list-2, transparent);
+	border-right-style:  var(--d-mmb_list-3, solid);
+	border-right-width:  calc(var(--d-mmb_list-side-right, 0) * var(--d-mmb_list-4, 0) * 1px);
+	border-bottom-color: var(--d-mmb_list-2, transparent);
+	border-bottom-style: var(--d-mmb_list-3, solid);
+	border-bottom-width: calc(var(--d-mmb_list-side-bottom, 0) * var(--d-mmb_list-4, 0) * 1px);
+	border-left-color:   var(--d-mmb_list-2, transparent);
+	border-left-style:   var(--d-mmb_list-3, solid);
+	border-left-width:   calc(var(--d-mmb_list-side-left, 0) * var(--d-mmb_list-4, 0) * 1px);
+}
+
+#log_list .item {
+	background-color: var(--d-mmb_list_item, transparent);
+	color:            var(--d-mmb_list_item-1, inherit);
+	border-top-color:    var(--d-mmb_list_item-2, transparent);
+	border-top-style:    var(--d-mmb_list_item-3, solid);
+	border-top-width:    calc(var(--d-mmb_list_item-side-top, 0) * var(--d-mmb_list_item-4, 0) * 1px);
+	border-right-color:  var(--d-mmb_list_item-2, transparent);
+	border-right-style:  var(--d-mmb_list_item-3, solid);
+	border-right-width:  calc(var(--d-mmb_list_item-side-right, 0) * var(--d-mmb_list_item-4, 0) * 1px);
+	border-bottom-color: var(--d-mmb_list_item-2, transparent);
+	border-bottom-style: var(--d-mmb_list_item-3, solid);
+	border-bottom-width: calc(var(--d-mmb_list_item-side-bottom, 0) * var(--d-mmb_list_item-4, 0) * 1px);
+	border-left-color:   var(--d-mmb_list_item-2, transparent);
+	border-left-style:   var(--d-mmb_list_item-3, solid);
+	border-left-width:   calc(var(--d-mmb_list_item-side-left, 0) * var(--d-mmb_list_item-4, 0) * 1px);
+	margin-bottom: calc(var(--d-mmb_list_item-6, 10) * 1px) !important;
+}
+
+#log_list .item .item-inner .ui-pic {
+	background-color: var(--d-mmb_log, transparent);
+	color:            var(--d-mmb_log-1, inherit);
+	border-top-color:    var(--d-mmb_log-2, transparent);
+	border-top-style:    var(--d-mmb_log-3, solid);
+	border-top-width:    calc(var(--d-mmb_log-side-top, 0) * var(--d-mmb_log-4, 0) * 1px);
+	border-right-color:  var(--d-mmb_log-2, transparent);
+	border-right-style:  var(--d-mmb_log-3, solid);
+	border-right-width:  calc(var(--d-mmb_log-side-right, 0) * var(--d-mmb_log-4, 0) * 1px);
+	border-bottom-color: var(--d-mmb_log-2, transparent);
+	border-bottom-style: var(--d-mmb_log-3, solid);
+	border-bottom-width: calc(var(--d-mmb_log-side-bottom, 0) * var(--d-mmb_log-4, 0) * 1px);
+	border-left-color:   var(--d-mmb_log-2, transparent);
+	border-left-style:   var(--d-mmb_log-3, solid);
+	border-left-width:   calc(var(--d-mmb_log-side-left, 0) * var(--d-mmb_log-4, 0) * 1px);
+}
+
+#log_list .item .item-inner .item-comment {
+	background-color: var(--d-mmb_reply_item, transparent);
+	color:            var(--d-mmb_reply_item-1, inherit);
+	border-top-color:    var(--d-mmb_reply_item-2, transparent);
+	border-top-style:    var(--d-mmb_reply_item-3, solid);
+	border-top-width:    calc(var(--d-mmb_reply_item-side-top, 0) * var(--d-mmb_reply_item-4, 0) * 1px);
+	border-right-color:  var(--d-mmb_reply_item-2, transparent);
+	border-right-style:  var(--d-mmb_reply_item-3, solid);
+	border-right-width:  calc(var(--d-mmb_reply_item-side-right, 0) * var(--d-mmb_reply_item-4, 0) * 1px);
+	border-bottom-color: var(--d-mmb_reply_item-2, transparent);
+	border-bottom-style: var(--d-mmb_reply_item-3, solid);
+	border-bottom-width: calc(var(--d-mmb_reply_item-side-bottom, 0) * var(--d-mmb_reply_item-4, 0) * 1px);
+	border-left-color:   var(--d-mmb_reply_item-2, transparent);
+	border-left-style:   var(--d-mmb_reply_item-3, solid);
+	border-left-width:   calc(var(--d-mmb_reply_item-side-left, 0) * var(--d-mmb_reply_item-4, 0) * 1px);
+	margin-bottom: calc(var(--d-mmb_reply_item-6, 6) * 1px) !important;
+}
+
+#log_list .item .item-inner .ui-comment {
+	background-color: var(--d-mmb_reply, transparent);
+	color:            var(--d-mmb_reply-1, inherit);
+	border-top-color:    var(--d-mmb_reply-2, transparent);
+	border-top-style:    var(--d-mmb_reply-3, solid);
+	border-top-width:    calc(var(--d-mmb_reply-side-top, 0) * var(--d-mmb_reply-4, 0) * 1px);
+	border-right-color:  var(--d-mmb_reply-2, transparent);
+	border-right-style:  var(--d-mmb_reply-3, solid);
+	border-right-width:  calc(var(--d-mmb_reply-side-right, 0) * var(--d-mmb_reply-4, 0) * 1px);
+	border-bottom-color: var(--d-mmb_reply-2, transparent);
+	border-bottom-style: var(--d-mmb_reply-3, solid);
+	border-bottom-width: calc(var(--d-mmb_reply-side-bottom, 0) * var(--d-mmb_reply-4, 0) * 1px);
+	border-left-color:   var(--d-mmb_reply-2, transparent);
+	border-left-style:   var(--d-mmb_reply-3, solid);
+	border-left-width:   calc(var(--d-mmb_reply-side-left, 0) * var(--d-mmb_reply-4, 0) * 1px);
+}
+
+#log_list .item .item-inner .co-header p,
+#log_list .item .item-inner .co-header p a			{ color: var(--d-mmb_name, inherit);       font-size: calc(var(--d-mmb_name-1, 13) * 1px); }
+#log_list .item .item-inner .co-header p.owner,
+#log_list .item .item-inner .co-header p.owner a	{ color: var(--d-mmb_owner_name, inherit); font-size: calc(var(--d-mmb_owner_name-1, 13) * 1px); }
+#log_list .item .item-inner .co-footer .date		{ color: var(--d-mmb_datetime, inherit);   font-size: calc(var(--d-mmb_datetime-1, 11) * 1px); }
+#log_list .item .item-inner .co-content .other-site-link	{ color: var(--d-mmb_link, inherit); }
+#log_list .item .item-inner .co-content .link_hash_tag		{ color: var(--d-mmb_hash, inherit); }
+#log_list .item .item-inner .co-content .log_link_tag		{ color: var(--d-mmb_log_ank, inherit); }
+#log_list .item .item-inner .co-content .member_call		{ color: var(--d-mmb_call, inherit); }
+
+
+/****************************************************
+	로드비 액션 박스 (.log-action-box)
+	  슬롯: [0]=bg-image, [1]=bg-color, [2]=color, [3]=border(shorthand),
+	        [4]=padding, [5]=font-size, [6]=top deco, [7]=bottom deco
+****************************************************/
+.log-action-box {
+	background-image:	var(--d-log_action_box-img, none);
+	background-repeat:	no-repeat;
+	background-size:	cover;
+	background-color:	var(--d-log_action_box-1, transparent);
+	color:				var(--d-log_action_box-2, inherit);
+	border:				var(--d-log_action_box-3, none);
+	padding:			var(--d-log_action_box-4, 0);
+	font-size:			var(--d-log_action_box-5, inherit);
+}
+
+
+/****************************************************
+	인벤토리 아이템 박스 (.item-box)
+****************************************************/
+.item-box {
+	background-image:	var(--d-inventory_item_box-img, none);
+	background-repeat:	no-repeat;
+	background-size:	cover;
+	background-color:	var(--d-inventory_item_box-1, transparent);
+	color:				var(--d-inventory_item_box-2, inherit);
+	padding:			var(--d-inventory_item_box-4, 0);
+	border:				var(--d-inventory_item_box-5, 1px solid #ccc);
+}
+.item-box a.inven-open-popup { width:100%; height:100%; display:flex; justify-content:center; align-items:center; position:relative; }
+.item-box i {
+	background:	var(--d-inventory_item_box-6, rgba(0,0,0,.5));
+	color:		var(--d-inventory_item_box-7, #fff);
+	font-size:	var(--d-inventory_item_box-8, 10px);
+}
+
+
+/****************************************************
+	아이템 팝업 (#inven_popup_viewer)
+****************************************************/
+#inven_popup_viewer {
+	background-image:	var(--d-inventory_item_popup-img, none);
+	background-repeat:	no-repeat;
+	background-size:	cover;
+	background-color:	var(--d-inventory_item_popup-1, transparent);
+	color:				var(--d-inventory_item_popup-2, inherit);
+	font-size:			var(--d-inventory_item_popup-3, inherit);
+	padding:			var(--d-inventory_item_popup-4, 0);
+	border:				var(--d-inventory_item_popup-5, none);
+}

@@ -1,0 +1,386 @@
+@charset "utf-8";
+/***************************************************************
+	Design Manager Setting Style: 자동생성 CSS
+---------------------------------------------------------------
+	- 최종 수정일 : 2025-11-11 16:38:30
+***************************************************************/
+
+
+body,
+.txt-default	{ color: #ffffff; }
+a,
+.txt-point	{ color: #29c7c9; }
+
+
+@media all and (min-width: 1025px) { 
+	html.single:before	{
+		background-image: url('http://localhost/test/skin/member/basic/img/bak_admin_login_top_pattern.png');
+		}
+}
+
+@media all and (max-width: 1024px) {
+	html.single:before	{
+		background-image: url('http://localhost/test/skin/member/basic/img/bak_admin_login_top_pattern.png');
+		}
+}
+
+
+@media all and (min-width: 1025px) { 
+	#header	{
+		background-color: rgba(0, 0, 0, .5);
+		}
+
+	#gnb	{
+		}
+
+	#gnb_control_box	{ display: none; }
+}
+
+@media all and (max-width: 1024px) {
+
+	#header	{
+		background-color: rgba(0, 0, 0, .5);
+		}
+
+	#gnb	{
+		}
+
+	#gnb_control_box	{
+	display: block;
+	}
+}
+
+
+
+#body	{ margin-left: 200px; }
+#header	{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	overflow-y: auto;
+	width: 200px;
+	
+}
+#logo	{
+	padding:20px 0;
+	text-align: center;
+}
+
+
+
+/*#gnb	{ float: right; }*/
+#gnb,
+#gnb *	{
+	color: #ffffff;
+	font-size: 14px;
+}
+#gnb a:hover {
+	color: #29c7c9;
+	font-size: 14px;
+}
+
+
+
+
+*::-webkit-scrollbar-track	{ background-color: #333333; }
+*::-webkit-scrollbar-thumb	{ background: #29c7c9; }
+
+* { outline-color: #29c7c9; }
+::selection	{ background:#29c7c9; }
+::-moz-selection	{ background:#29c7c9; }
+::-webkit-selection	{ background:#29c7c9; }
+
+::selection	{ color:#333333; }
+::-moz-selection	{ color:#333333; }
+::-webkit-selection	{ color:#333333; }
+
+
+
+
+.ui-btn	{
+	color:	#ffffff;
+	background:	#000000;
+	border-color:	#000000;
+}
+.ui-btn:hover	{
+	color:	#ffffff;
+	background:	#222222;
+	border-color:	#000000;
+}
+
+.ui-btn.point	{
+	color:	#ffffff;
+	background:	#29c7c9;
+	border-color:	#29c7c9;
+}
+.ui-btn.point:hover	{
+	color:	#ffffff;
+	background:	#29c7c9;
+	border-color:	#29c7c9;
+}
+
+.ui-btn.etc	{
+	color:	#ffffff;
+	background:	#555555;
+	border-color:	#333333;
+}
+.ui-btn.etc:hover	{
+	color:	#ffffff;
+	background:	#555555;
+	border-color:	#333333;
+}
+.swiper-pagination-bullet-active {background:	#29c7c9;}
+
+
+.pg_wrap .pg_page	{
+	color:	#ffffff;
+	background:	#000000;
+	border-color:	#000000;
+}
+.pg_wrap .pg_page:hover	{
+	color:	#ffffff;
+	background:	#222222;
+	border-color:	#000000;
+}
+
+.pg_wrap .pg_current,
+.pg_wrap .pg_current:hover	{
+	color:	#ffffff;
+	background:	#29c7c9;
+	border-color:	#29c7c9;
+}
+
+
+
+
+
+.bar-equalizer i	{
+	background: #29c7c9;
+	-webkit-box-shadow: 0px 0px 3px 0px #000000;
+	-moz-box-shadow: 0px 0px 3px 0px #000000;
+	box-shadow: 0px 0px 3px 0px #000000;
+}
+
+
+
+.status-bar dd p	{
+	background: #ffffff;
+}
+.status-bar dd p span	{
+	background: #29c7c9;
+	opacity: .5;
+}
+.status-bar dd p sup	{
+	background: #29c7c9;
+}
+.status-bar dd p i	{
+	color: #333333;
+}
+
+
+
+hr.line	{
+	background: #29c7c9;
+}
+
+
+
+
+.form-input,
+input[type="file"],
+input[type="text"],
+input[type="number"],
+input[type="password"],
+textarea,
+select	{
+	color:	#eeeeee;
+	background:	#000000;
+	border-color:	#222222;
+	
+				}
+
+::-webkit-input-placeholder {
+	color: #eeeeee;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color: #eeeeee;
+	opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color: #eeeeee;
+	opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color: #eeeeee;
+}
+
+
+*::-webkit-input-placeholder	{ color:#000; } 
+textarea:-moz-placeholder, input:-moz-placeholder	{ color:#000; }
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  background-color: #000000 !important;
+  color: #eeeeee;
+}
+
+
+
+
+.flex-control-paging a	{ background: #ffffff; }
+.flex-control-paging a.flex-active	{ background: #29c7c9; }
+
+
+
+
+.theme-box	{
+	background-color: rgba(0, 0, 0, .5);
+	color: #eeeeee;
+				}
+.theme-box.no-link a	{
+	color: #eeeeee;
+}
+
+
+
+.inven-popup-viewer {
+	background-color: rgba(0, 0, 0, .5);
+	color: #eeeeee;
+}
+
+
+
+
+#submenu	{
+	background-color:	rgba(0, 0, 0, .5);
+	color:	#eeeeee;
+	border-top-color:	#555555;
+	border-top-style:	dashed;
+	border-top-width: 1px;
+	border-bottom-color:	#555555;
+	border-bottom-style:	dashed;
+	border-bottom-width: 1px;
+}
+#submenu a	{
+	color: #eeeeee;
+}
+#submenu a:hover	{
+	color: #29c7c9;
+}
+
+
+
+
+.theme-list,
+.theme-form	{
+	background-color:	;
+	color:	;
+}
+
+/*** Form Area ***/
+.theme-form th	{
+	background-color:	#000000;
+	color:	#ffffff;
+}
+.theme-form td	{
+	background-color:	rgba(255, 255, 255, .1);
+	color:	#ffffff;
+	border-top-color:	#333333;
+	border-top-style:	solid;
+	border-top-width:	1px;
+	border-bottom-color:	#333333;
+	border-bottom-style:	solid;
+	border-bottom-width:	1px;
+}
+
+/*** List Area ***/
+.theme-list th	{
+	background-color:	#000000;
+	color:	#ffffff;
+	border-top-color:	#333333;
+	border-top-style:	double;
+	border-top-width:	1px;
+	border-bottom-color:	#333333;
+	border-bottom-style:	double;
+	border-bottom-width:	1px;
+}
+.theme-list td	{
+	background-color:	;
+	color:	#ffffff;
+}
+
+
+
+
+#tab_list { border-color: #29c7c9; }
+
+
+.inventory-list a i	{
+	border: 1px solid #29c7c9;
+	background: rgba(0, 0, 0, .7);
+	color: #fff;
+}
+
+
+
+
+
+#load_log_board	{
+	}
+
+.board-notice	{
+		background-color: rgba(0, 0, 0, .5);
+		color: #ffffff;
+	}
+
+#log_list	{
+	}
+#log_list .item	{
+	
+	}
+
+#log_list .item .item-inner .ui-pic	{
+	}
+
+
+#log_list .item .item-inner .item-comment	{
+		background-color: rgba(0, 0, 0, .5);
+		color: #eaeaea;
+			margin-bottom: 10px !important;
+	}
+
+
+#log_list .item .item-inner	.ui-comment	{
+	
+	}
+
+
+#log_list .item .item-inner .co-header p,
+#log_list .item .item-inner .co-header p a	{
+		color: #eeeeee;
+			font-size: 12px;
+	}
+
+#log_list .item .item-inner .co-header p.owner,
+#log_list .item .item-inner .co-header p.owner a	{
+		color: #29c7c9;
+			font-size: 12px;
+	}
+
+#log_list .item .item-inner .co-footer .date	{
+		color: #bbbbbb;
+			font-size: 11px;
+	}
+#log_list .item .item-inner .co-content .other-site-link	{
+		color: #29c7c9;
+	}
+#log_list .item .item-inner .co-content .link_hash_tag	{
+		color: #29c7c9;
+	}
+#log_list .item .item-inner .co-content .log_link_tag	{
+		color: #29c7c9;
+	}
+#log_list .item .item-inner .co-content .member_call	{
+		color: #29c7c9;
+	}

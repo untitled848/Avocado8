@@ -1,0 +1,47 @@
+/* bbs_action_map — 위치이동 / 맵 패널 / 로그 */
+
+.map-panel .map-row { display: flex; align-items: flex-start; gap: 10px; margin: 6px 0; }
+.map-panel .map-row > dt { width: 72px; font-weight: 600; flex-shrink: 0; padding-top: 6px; }
+.map-panel .map-row > dd { flex: 1; min-width: 0; }
+.map-panel .map-row select { width: 100%; max-width: 420px; }
+.map-panel .map-info { display: flex; gap: 12px; margin-top: 10px; align-items: flex-start; }
+.map-panel .map-info-thumb { flex: 0 0 80px; }
+.map-panel .map-info-thumb img { display: block; width: 80px; height: auto; max-height: 80px; object-fit: cover; }
+.map-panel .map-info-text { flex: 1; min-width: 0; }
+.map-panel .map-info-text strong { display: block; margin-bottom: 4px; }
+.map-panel .map-info-text p { margin: 0; opacity: .85; font-size: .92em; line-height: 1.45; }
+
+/* 목록 상단 전체 맵 */
+#mmb_map_pannel,
+.bbs-action-map-overview { position: relative; overflow: hidden; }
+#mmb_map_pannel .map-inner,
+.bbs-action-map-overview .map-inner { display: block; position: relative; margin: 20px auto; }
+#mmb_map_pannel .map-inner .pad,
+.bbs-action-map-overview .map-inner .pad { display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 1; }
+#mmb_map_pannel .map-inner > img,
+.bbs-action-map-overview .map-inner > img { display: block; position: relative; z-index: 0; width: 100%; height: auto; }
+#mmb_map_pannel .map-inner .pin,
+.bbs-action-map-overview .map-inner .pin { display: block; position: absolute; box-sizing: border-box; }
+#mmb_map_pannel .map-inner .pin.my,
+.bbs-action-map-overview .map-inner .pin.my { background: rgba(172, 34, 188, .8) !important; }
+#mmb_map_pannel .map-inner .pin.other,
+.bbs-action-map-overview .map-inner .pin.other { background: rgba(18, 108, 138, .8); }
+#mmb_map_pannel .map-inner .pin span,
+.bbs-action-map-overview .map-inner .pin span {
+    display: block; position: absolute; top: 50%; left: 0; right: 0;
+    transform: translateY(-50%); font-size: 11px; text-align: center;
+}
+
+/* 로그 */
+.log-action-box.log-map,
+.log-action-box.log-map-mon { padding: 10px 0; max-width: 430px; width: 100%; margin: 10px auto; }
+.log-map .log-map-img { text-align: center; margin-bottom: 8px; }
+.log-map .log-map-img img { max-width: 100%; height: auto; }
+.log-map .title { font-style: normal; font-weight: 700; }
+.log-map .thumb { text-align: center; margin: 8px 0; }
+.log-map .thumb img { max-width: 80px; height: auto; }
+.log-map .hp-bar { position: relative; line-height: 20px; height: 20px; border: 1px solid rgba(255,255,255,.2); border-radius: 4px; overflow: hidden; background: rgba(0,0,0,.7); }
+.log-map .hp-bar i { display: block; position: absolute; top: 0; left: 5px; bottom: 0; z-index: 1; font-style: normal; font-size: 12px; }
+.log-map .hp-bar span { display: block; position: absolute; top: 0; left: 0; bottom: 0; width: 0; background: #581212; z-index: 0; }
+.log-map-mon .dice-line { letter-spacing: .02em; }
+.log-map-mon .dice { display: inline-block; min-width: 1.6em; text-align: center; font-weight: 600; }
