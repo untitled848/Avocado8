@@ -49,6 +49,7 @@ if (defined('_INDEX_')) {
 <html lang="ko" class="<?php echo $is_page_login ? 'login' : ''; ?> <?php echo (isset($_COOKIE['header_close']) && $_COOKIE['header_close'] === 'close') ? 'close-header' : ''; ?>">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <?php
