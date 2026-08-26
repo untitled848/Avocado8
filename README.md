@@ -113,7 +113,6 @@ DB 접속 정보는 설치 후 `data/dbconfig.php` 에 생성됩니다 (커밋 �
 | `**data/**`    | 런타임 전용. `dbconfig.php`, 세션, 업로드, 캐시, 모듈 `state.json` 등. 배포 시 쓰기 권한 필요. gitignore 대상이 많다.     |
 | `**docs/**`    | 사람이 읽는 문서. `adm/`(관리자), `module/`(모듈), `theme/`(테마).                                         |
 
-
 ---
 
 ## 루트 주요 파일
