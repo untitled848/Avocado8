@@ -8,9 +8,40 @@ check_admin_token();
 @mkdir(G5_DATA_PATH.'/world/menu', G5_DIR_PERMISSION);
 @chmod(G5_DATA_PATH.'/world/menu', G5_DIR_PERMISSION);
 
-$main_data  = is_array($_POST['main'] ?? null)  ? $_POST['main']  : array();
-$sub_data   = is_array($_POST['sub'] ?? null)   ? $_POST['sub']   : array();
+// 일부 호스팅(예: 카페24)의 웹방화벽(WAF)이 "name=\"main[0][title]\"" 같은 PHP 배열
+// 표기 POST 파라미터를 의심 패턴으로 간주해 요청 자체를 차단하는 사례가 있다(애플리케이션
+// 레벨에는 아무 로그도 남지 않고 HTTP 500만 발생). 그래서 폼에서는 "main_0_title" 처럼
+// 평탄한(flat) 이름으로 전송받고, 여기서 다시 배열 구조로 재조립한다.
+function wm_collect_flat($prefix) {
+    $out = array();
+    foreach ($_POST as $key => $val) {
+        if (preg_match('/^'.preg_quote($prefix, '/').'_(\d+)_(.+)$/', $key, $mt)) {
+            $out[(int)$mt[1]][$mt[2]] = $val;
+        }
+    }
+    ksort($out);
+    return $out;
+}
+// 파일 입력도 "main_img_0_d" 형태의 평탄한 이름으로 전송되므로 $_FILES 에서
+// idx(0,1,2...) / suffix(d,h) 별로 재구성한다.
+function wm_collect_flat_files($prefix) {
+    $out = array();
+    foreach ($_FILES as $key => $info) {
+        if (preg_match('/^'.preg_quote($prefix, '/').'_(\d+)_([dh])$/', $key, $mt)) {
+            $out[(int)$mt[1]][$mt[2]] = $info;
+        }
+    }
+    return $out;
+}
+
+$main_data  = wm_collect_flat('main');
+$sub_data   = wm_collect_flat('sub');
 $first_page = $_POST['first_page'] ?? '';
+
+$main_files   = wm_collect_flat_files('main_img');
+$sub_files    = wm_collect_flat_files('sub_img');
+$main_img_del = wm_collect_flat('main_img_del');
+$sub_img_del  = wm_collect_flat('sub_img_del');
 
 $allowed_img = array('jpg','jpeg','png','gif','webp');
 
@@ -52,8 +83,10 @@ foreach ($main_data as $idx => $m) {
     $idx  = (int)$idx;
     $mid  = (int)($m['id'] ?? 0);
     $del  = (int)($m['del'] ?? 0);
-    $title = trim($m['title'] ?? '');
-    $link  = preg_match('/^[a-z0-9_]+$/i', $m['link_wo_id'] ?? '') ? $m['link_wo_id'] : '';
+    // wm_title/wm_link_wo_id 컬럼 길이(200/20)를 초과하면 strict SQL 모드(MariaDB 기본값)에서
+    // "Data too long for column" 오류가 발생해 저장이 실패하므로 미리 컬럼 길이에 맞춰 자른다.
+    $title = mb_substr(trim($m['title'] ?? ''), 0, 200);
+    $link  = preg_match('/^[a-z0-9_]+$/i', $m['link_wo_id'] ?? '') ? mb_substr($m['link_wo_id'], 0, 20) : '';
     $order = (int)($m['order'] ?? 0);
 
     if ($del) {
@@ -93,8 +126,10 @@ foreach ($sub_data as $idx => $s) {
     $sid      = (int)($s['id'] ?? 0);
     $main_idx = (int)($s['main_idx'] ?? -1);
     $del      = (int)($s['del'] ?? 0);
-    $title    = trim($s['title'] ?? '');
-    $link     = preg_match('/^[a-z0-9_]+$/i', $s['link_wo_id'] ?? '') ? $s['link_wo_id'] : '';
+    // wm_title/wm_link_wo_id 컬럼 길이(200/20)를 초과하면 strict SQL 모드(MariaDB 기본값)에서
+    // "Data too long for column" 오류가 발생해 저장이 실패하므로 미리 컬럼 길이에 맞춰 자른다.
+    $title    = mb_substr(trim($s['title'] ?? ''), 0, 200);
+    $link     = preg_match('/^[a-z0-9_]+$/i', $s['link_wo_id'] ?? '') ? mb_substr($s['link_wo_id'], 0, 20) : '';
     $order    = (int)($s['order'] ?? 0);
     $parent_wm_id = $main_id_map[$main_idx] ?? -1;
 
@@ -134,20 +169,16 @@ if (preg_match('/^(m|s)_(\d+)$/', $first_page, $fp)) {
 foreach ($main_id_map as $idx => $wm_id) {
     if ($wm_id <= 0) continue;
     foreach (array('d', 'h') as $sfx) {
-        $col = ($sfx === 'd') ? 'wm_img' : 'wm_img_hover';
-        if (!empty($_FILES['main_img']['name'][$idx][$sfx])) {
-            $file = array(
-                'name'     => $_FILES['main_img']['name'][$idx][$sfx],
-                'tmp_name' => $_FILES['main_img']['tmp_name'][$idx][$sfx],
-                'error'    => $_FILES['main_img']['error'][$idx][$sfx],
-            );
+        $col  = ($sfx === 'd') ? 'wm_img' : 'wm_img_hover';
+        $file = $main_files[$idx][$sfx] ?? null;
+        if ($file && !empty($file['name'])) {
             $saved = wm_save_img($file, $wm_id, $sfx);
             if ($saved !== false) {
                 $saved_e = sql_escape_string($saved);
                 sql_query("UPDATE `{$g5['world_menu_table']}` SET {$col}='{$saved_e}' WHERE wm_id='{$wm_id}'");
             }
         }
-        if (!empty($_POST['main_img_del'][$idx][$sfx])) {
+        if (!empty($main_img_del[$idx][$sfx])) {
             wm_purge_img($wm_id, $sfx);
             sql_query("UPDATE `{$g5['world_menu_table']}` SET {$col}='' WHERE wm_id='{$wm_id}'");
         }
@@ -158,20 +189,16 @@ foreach ($main_id_map as $idx => $wm_id) {
 foreach ($sub_id_map as $idx => $wm_id) {
     if ($wm_id <= 0) continue;
     foreach (array('d', 'h') as $sfx) {
-        $col = ($sfx === 'd') ? 'wm_img' : 'wm_img_hover';
-        if (!empty($_FILES['sub_img']['name'][$idx][$sfx])) {
-            $file = array(
-                'name'     => $_FILES['sub_img']['name'][$idx][$sfx],
-                'tmp_name' => $_FILES['sub_img']['tmp_name'][$idx][$sfx],
-                'error'    => $_FILES['sub_img']['error'][$idx][$sfx],
-            );
+        $col  = ($sfx === 'd') ? 'wm_img' : 'wm_img_hover';
+        $file = $sub_files[$idx][$sfx] ?? null;
+        if ($file && !empty($file['name'])) {
             $saved = wm_save_img($file, $wm_id, $sfx);
             if ($saved !== false) {
                 $saved_e = sql_escape_string($saved);
                 sql_query("UPDATE `{$g5['world_menu_table']}` SET {$col}='{$saved_e}' WHERE wm_id='{$wm_id}'");
             }
         }
-        if (!empty($_POST['sub_img_del'][$idx][$sfx])) {
+        if (!empty($sub_img_del[$idx][$sfx])) {
             wm_purge_img($wm_id, $sfx);
             sql_query("UPDATE `{$g5['world_menu_table']}` SET {$col}='' WHERE wm_id='{$wm_id}'");
         }

@@ -34,7 +34,7 @@ if (!defined('_GNUBOARD_')) exit;
     <input type="hidden" name="ch_id" value="<?php echo $character['ch_id']; ?>" />
     <input type="hidden" name="ti_id" value="<?php echo $character['ch_title']; ?>" />
     <input type="hidden" name="ma_id" value="<?php echo $character['ma_id']; ?>" />
-    <input type="hidden" name="wr_subject" value="<?php echo $character['ch_name'] !== '' ? $character['ch_name'] : 'GUEST'; ?>" />
+    <input type="hidden" name="wr_subject" value="<?php echo (isset($character['ch_name']) && $character['ch_name'] !== '') ? $character['ch_name'] : 'GUEST'; ?>" />
 
     <div class="input-comment">
         <textarea name="wr_content" id="wr_content_<?php echo $list_item['wr_id']; ?>" required class="required" title="내용"></textarea>

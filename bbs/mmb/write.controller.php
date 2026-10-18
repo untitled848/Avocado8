@@ -118,12 +118,12 @@ if ($w == 'u') {
     }
 
     if (isset($write['wr_subject']) && $write['wr_subject'] === '--|UPLOADING|--') {
-        $write['wr_subject'] = $character['ch_name'] !== '' ? $character['ch_name'] : 'GUEST';
+        $write['wr_subject'] = (isset($character['ch_name']) && $character['ch_name'] !== '') ? $character['ch_name'] : 'GUEST';
     }
 
 } else {
     // 새 글
-    $write['wr_subject'] = $character['ch_name'] !== '' ? $character['ch_name'] : 'GUEST';
+    $write['wr_subject'] = (isset($character['ch_name']) && $character['ch_name'] !== '') ? $character['ch_name'] : 'GUEST';
 }
 
 // 모듈 훅 컨텍스트

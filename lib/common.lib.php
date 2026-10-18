@@ -1366,6 +1366,12 @@ function sql_connect($host, $user, $pass, $db = G5_MYSQL_DB)
 {
     global $g5;
 
+    // PHP 8.1+ 는 mysqli 기본 에러 모드가 예외(MYSQLI_REPORT_ERROR|MYSQLI_REPORT_STRICT)로
+    // 바뀌어서, 쿼리 실패 시 아래 '@' 억제나 sql_query() 의 false 체크가 무의미해지고
+    // 처리되지 않은 mysqli_sql_exception 이 그대로 치명적 오류(HTTP 500)로 이어진다.
+    // 과거(PHP 5/7)처럼 실패 시 false 를 반환하도록 되돌려서 die() 기반 에러 처리가 동작하게 한다.
+    mysqli_report(MYSQLI_REPORT_OFF);
+
     $link = @mysqli_connect($host, $user, $pass, $db);
 
     if (!$link) {

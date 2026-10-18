@@ -110,11 +110,11 @@ foreach ($main_items as $main):
     <div class="main-row">
         <span class="handle" title="드래그로 순서 변경">⋮⋮</span>
         <span class="badge-main">메인</span>
-        <input type="hidden" name="main[<?php echo $main_idx; ?>][id]" value="<?php echo $mid; ?>">
-        <input type="hidden" name="main[<?php echo $main_idx; ?>][del]" class="del-flag" value="0">
-        <input type="hidden" name="main[<?php echo $main_idx; ?>][order]" class="order-input" value="<?php echo (int)$main['wm_order']; ?>">
-        <input type="text" name="main[<?php echo $main_idx; ?>][title]" value="<?php echo htmlspecialchars2($main['wm_title']); ?>" placeholder="메뉴명">
-        <select name="main[<?php echo $main_idx; ?>][link_wo_id]">
+        <input type="hidden" name="main_<?php echo $main_idx; ?>_id" value="<?php echo $mid; ?>">
+        <input type="hidden" name="main_<?php echo $main_idx; ?>_del" class="del-flag" value="0">
+        <input type="hidden" name="main_<?php echo $main_idx; ?>_order" class="order-input" value="<?php echo (int)$main['wm_order']; ?>">
+        <input type="text" name="main_<?php echo $main_idx; ?>_title" value="<?php echo htmlspecialchars2($main['wm_title']); ?>" placeholder="메뉴명">
+        <select name="main_<?php echo $main_idx; ?>_link_wo_id">
             <option value="">— 페이지 선택 —</option>
             <?php foreach ($pages as $pg): ?>
             <option value="<?php echo $pg['wo_id']; ?>"<?php echo ($main['wm_link_wo_id'] == $pg['wo_id']) ? ' selected' : ''; ?>><?php echo htmlspecialchars2($pg['wo_subject']); ?></option>
@@ -129,13 +129,13 @@ foreach ($main_items as $main):
     <div class="imgs">
         <div class="col">
             <span class="thumb" style="<?php echo $dimg_url ? 'background-image:url('.$dimg_url.')' : ''; ?>"></span>
-            기본:<input type="file" name="main_img[<?php echo $main_idx; ?>][d]" accept="image/*">
-            <?php if ($dimg_url): ?><label><input type="checkbox" name="main_img_del[<?php echo $main_idx; ?>][d]" value="1"> 삭제</label><?php endif; ?>
+            기본:<input type="file" name="main_img_<?php echo $main_idx; ?>_d" accept="image/*">
+            <?php if ($dimg_url): ?><label><input type="checkbox" name="main_img_del_<?php echo $main_idx; ?>_d" value="1"> 삭제</label><?php endif; ?>
         </div>
         <div class="col">
             <span class="thumb" style="<?php echo $himg_url ? 'background-image:url('.$himg_url.')' : ''; ?>"></span>
-            Hover:<input type="file" name="main_img[<?php echo $main_idx; ?>][h]" accept="image/*">
-            <?php if ($himg_url): ?><label><input type="checkbox" name="main_img_del[<?php echo $main_idx; ?>][h]" value="1"> 삭제</label><?php endif; ?>
+            Hover:<input type="file" name="main_img_<?php echo $main_idx; ?>_h" accept="image/*">
+            <?php if ($himg_url): ?><label><input type="checkbox" name="main_img_del_<?php echo $main_idx; ?>_h" value="1"> 삭제</label><?php endif; ?>
         </div>
     </div>
 
@@ -151,12 +151,12 @@ foreach ($sub_items[$mid] as $sub):
         <li draggable="true" data-card="sub" data-sub-idx="<?php echo $sub_idx_global; ?>">
             <span class="handle">⋮⋮</span>
             <span class="badge-sub">서브</span>
-            <input type="hidden" name="sub[<?php echo $sub_idx_global; ?>][id]" value="<?php echo $sid; ?>">
-            <input type="hidden" name="sub[<?php echo $sub_idx_global; ?>][main_idx]" class="parent-input" value="<?php echo $main_idx; ?>">
-            <input type="hidden" name="sub[<?php echo $sub_idx_global; ?>][del]" class="del-flag" value="0">
-            <input type="hidden" name="sub[<?php echo $sub_idx_global; ?>][order]" class="order-input" value="<?php echo (int)$sub['wm_order']; ?>">
-            <input type="text" name="sub[<?php echo $sub_idx_global; ?>][title]" value="<?php echo htmlspecialchars2($sub['wm_title']); ?>" placeholder="서브메뉴명">
-            <select name="sub[<?php echo $sub_idx_global; ?>][link_wo_id]">
+            <input type="hidden" name="sub_<?php echo $sub_idx_global; ?>_id" value="<?php echo $sid; ?>">
+            <input type="hidden" name="sub_<?php echo $sub_idx_global; ?>_main_idx" class="parent-input" value="<?php echo $main_idx; ?>">
+            <input type="hidden" name="sub_<?php echo $sub_idx_global; ?>_del" class="del-flag" value="0">
+            <input type="hidden" name="sub_<?php echo $sub_idx_global; ?>_order" class="order-input" value="<?php echo (int)$sub['wm_order']; ?>">
+            <input type="text" name="sub_<?php echo $sub_idx_global; ?>_title" value="<?php echo htmlspecialchars2($sub['wm_title']); ?>" placeholder="서브메뉴명">
+            <select name="sub_<?php echo $sub_idx_global; ?>_link_wo_id">
                 <option value="">— 페이지 선택 —</option>
                 <?php foreach ($pages as $pg): ?>
                 <option value="<?php echo $pg['wo_id']; ?>"<?php echo ($sub['wm_link_wo_id'] == $pg['wo_id']) ? ' selected' : ''; ?>><?php echo htmlspecialchars2($pg['wo_subject']); ?></option>
@@ -165,9 +165,9 @@ foreach ($sub_items[$mid] as $sub):
             <label class="first-toggle"><input type="radio" name="first_page" value="s_<?php echo $sub_idx_global; ?>"<?php echo $sub['wm_is_first'] ? ' checked' : ''; ?>> 첫</label>
             <span class="imgs-inline">
                 <span class="thumb" style="<?php echo $sd_url ? 'background-image:url('.$sd_url.')' : ''; ?>" title="기본"></span>
-                <input type="file" name="sub_img[<?php echo $sub_idx_global; ?>][d]" accept="image/*" title="기본 이미지">
+                <input type="file" name="sub_img_<?php echo $sub_idx_global; ?>_d" accept="image/*" title="기본 이미지">
                 <span class="thumb" style="<?php echo $sh_url ? 'background-image:url('.$sh_url.')' : ''; ?>" title="hover"></span>
-                <input type="file" name="sub_img[<?php echo $sub_idx_global; ?>][h]" accept="image/*" title="hover 이미지">
+                <input type="file" name="sub_img_<?php echo $sub_idx_global; ?>_h" accept="image/*" title="hover 이미지">
             </span>
             <span class="actions">
                 <button type="button" class="btn-mini btn-del" onclick="delCard(this)">삭제</button>
@@ -216,17 +216,17 @@ function addMainCard() {
       '<li class="wm-card" draggable="true" data-card="main" data-main-idx="'+idx+'">' +
         '<div class="main-row">' +
           '<span class="handle">⋮⋮</span><span class="badge-main">메인</span>' +
-          '<input type="hidden" name="main['+idx+'][id]" value="0">' +
-          '<input type="hidden" name="main['+idx+'][del]" class="del-flag" value="0">' +
-          '<input type="hidden" name="main['+idx+'][order]" class="order-input" value="0">' +
-          '<input type="text" name="main['+idx+'][title]" placeholder="메뉴명">' +
-          '<select name="main['+idx+'][link_wo_id]">'+pageOpts('')+'</select>' +
+          '<input type="hidden" name="main_'+idx+'_id" value="0">' +
+          '<input type="hidden" name="main_'+idx+'_del" class="del-flag" value="0">' +
+          '<input type="hidden" name="main_'+idx+'_order" class="order-input" value="0">' +
+          '<input type="text" name="main_'+idx+'_title" placeholder="메뉴명">' +
+          '<select name="main_'+idx+'_link_wo_id">'+pageOpts('')+'</select>' +
           '<label class="first-toggle"><input type="radio" name="first_page" value="m_'+idx+'"> 첫 페이지</label>' +
           '<span class="actions"><button type="button" class="btn-mini btn-del" onclick="delCard(this)">삭제</button></span>' +
         '</div>' +
         '<div class="imgs">' +
-          '<div class="col"><span class="thumb"></span>기본:<input type="file" name="main_img['+idx+'][d]" accept="image/*"></div>' +
-          '<div class="col"><span class="thumb"></span>Hover:<input type="file" name="main_img['+idx+'][h]" accept="image/*"></div>' +
+          '<div class="col"><span class="thumb"></span>기본:<input type="file" name="main_img_'+idx+'_d" accept="image/*"></div>' +
+          '<div class="col"><span class="thumb"></span>Hover:<input type="file" name="main_img_'+idx+'_h" accept="image/*"></div>' +
         '</div>' +
         '<ul class="wm-subs" data-subs-of="'+idx+'"></ul>' +
         '<div class="add-sub"><a href="#" onclick="addSubCard(this); return false;">+ 서브 추가</a></div>' +
@@ -243,16 +243,16 @@ function addSubCard(triggerEl) {
     var html =
       '<li draggable="true" data-card="sub" data-sub-idx="'+idx+'">' +
         '<span class="handle">⋮⋮</span><span class="badge-sub">서브</span>' +
-        '<input type="hidden" name="sub['+idx+'][id]" value="0">' +
-        '<input type="hidden" name="sub['+idx+'][main_idx]" class="parent-input" value="'+mainIdx+'">' +
-        '<input type="hidden" name="sub['+idx+'][del]" class="del-flag" value="0">' +
-        '<input type="hidden" name="sub['+idx+'][order]" class="order-input" value="0">' +
-        '<input type="text" name="sub['+idx+'][title]" placeholder="서브메뉴명">' +
-        '<select name="sub['+idx+'][link_wo_id]">'+pageOpts('')+'</select>' +
+        '<input type="hidden" name="sub_'+idx+'_id" value="0">' +
+        '<input type="hidden" name="sub_'+idx+'_main_idx" class="parent-input" value="'+mainIdx+'">' +
+        '<input type="hidden" name="sub_'+idx+'_del" class="del-flag" value="0">' +
+        '<input type="hidden" name="sub_'+idx+'_order" class="order-input" value="0">' +
+        '<input type="text" name="sub_'+idx+'_title" placeholder="서브메뉴명">' +
+        '<select name="sub_'+idx+'_link_wo_id">'+pageOpts('')+'</select>' +
         '<label class="first-toggle"><input type="radio" name="first_page" value="s_'+idx+'"> 첫</label>' +
         '<span class="imgs-inline">' +
-          '<span class="thumb" title="기본"></span><input type="file" name="sub_img['+idx+'][d]" accept="image/*">' +
-          '<span class="thumb" title="hover"></span><input type="file" name="sub_img['+idx+'][h]" accept="image/*">' +
+          '<span class="thumb" title="기본"></span><input type="file" name="sub_img_'+idx+'_d" accept="image/*">' +
+          '<span class="thumb" title="hover"></span><input type="file" name="sub_img_'+idx+'_h" accept="image/*">' +
         '</span>' +
         '<span class="actions"><button type="button" class="btn-mini btn-del" onclick="delCard(this)">삭제</button></span>' +
       '</li>';

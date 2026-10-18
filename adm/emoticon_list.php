@@ -161,12 +161,7 @@ if ($pending && sql_num_rows($pending) > 0): ?>
 		<td class="txt-left"><input type="text" name="me_text[<?php echo $i ?>]" value="<?php echo htmlspecialchars($row['me_text'], ENT_QUOTES); ?>" class="frm_input" style="width:90%;"></td>
 		<td><?php echo $row['em_mb_name'] !== '' ? htmlspecialchars($row['em_mb_name'], ENT_QUOTES) : '<span style="color:#888;">관리자</span>'; ?></td>
 		<td style="text-align:center;">
-			<form method="post" action="./emoticon_list_update.php" enctype="multipart/form-data" style="display:inline-block;margin:0;">
-				<input type="hidden" name="token" value="<?php echo $token ?>">
-				<input type="hidden" name="act" value="img_replace">
-				<input type="hidden" name="me_id" value="<?php echo $row_me_id ?>">
-				<input type="file" name="me_img" required style="width:100px;" onchange="if(confirm('이미지를 교체하시겠습니까?'))this.form.submit();">
-			</form>
+			<input type="file" accept="image/*" style="width:100px;" data-me-id="<?php echo $row_me_id ?>" onchange="emoticon_img_replace(this);">
 		</td>
 	</tr>
 	<?php
@@ -227,6 +222,34 @@ if ($pending && sql_num_rows($pending) > 0): ?>
 </section>
 
 <script>
+function emoticon_img_replace(input)
+{
+	if (!input.files || !input.files.length) {
+		return;
+	}
+
+	if (!confirm('이미지를 교체하시겠습니까?')) {
+		input.value = '';
+		return;
+	}
+
+	var fd = new FormData();
+	fd.append('token', '<?php echo $token ?>');
+	fd.append('act', 'img_replace');
+	fd.append('me_id', input.getAttribute('data-me-id'));
+	fd.append('me_img', input.files[0]);
+
+	fetch('./emoticon_list_update.php', {
+		method: 'POST',
+		body: fd
+	}).then(function() {
+		location.reload();
+	}).catch(function() {
+		alert('이미지 교체 중 오류가 발생했습니다.');
+		location.reload();
+	});
+}
+
 function fpointlist_submit(f)
 {
 	if (!is_checked("chk[]")) {
