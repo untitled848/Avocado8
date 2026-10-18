@@ -2752,6 +2752,9 @@ function mark_timeline_mentions_read($tl_table, $ch_id) {
  *
  * 독백:
  * - (text) → <span class="monolog">(text)</span>
+ *
+ * 일반 링크:
+ * - http(s)://... → 새 탭으로 열리는 <a class="other-site-link"> (해시태그/콜링/로그링크는 미구현 범위라 제외)
  */
 function render_timeline_content($content, $tl_table = '', $is_script = false) {
     global $g5;
@@ -2762,7 +2765,12 @@ function render_timeline_content($content, $tl_table = '', $is_script = false) {
     
     // HTML 특수문자 이스케이프
     $content = htmlspecialchars($content, ENT_QUOTES, 'UTF-8');
-    
+
+    // 일반 링크(URL) 변환 — 해시태그/콜링/로그링크는 제외, 멘션·마크다운·독백 처리보다 먼저
+    // 플레이스홀더로 보호해두고 모든 가공이 끝난 뒤 복원한다 (extend/mmb.lib.php autolink() 참고)
+    $tl_autolink_url_map = array();
+    $content = timeline_extract_autolink_urls($content, $tl_autolink_url_map);
+
     // 멘션 변환 콜백 (tu_men_id 우선 해석)
     $mention_callback = function($mention_name) use ($g5, $tl_table) {
         $mention_name = trim($mention_name);
@@ -2800,8 +2808,64 @@ function render_timeline_content($content, $tl_table = '', $is_script = false) {
     
     // 줄바꿈 처리
     $content = nl2br($content);
-    
+
+    // URL 플레이스홀더 복원
+    if ($tl_autolink_url_map) {
+        $content = strtr($content, $tl_autolink_url_map);
+    }
+
     return $content;
+}
+
+/**
+ * 플레인 텍스트(htmlspecialchars 적용된 문자열) 안의 일반 URL(http/https)을
+ * 새 탭으로 열리는 링크로 변환하기 위해 플레이스홀더로 추출해 둔다.
+ * 해시태그(#)/콜링([[ ]])/로그링크(@숫자)는 대상이 아니며, 멘션(@이름)이나
+ * 마크다운(*,**), 독백(()) 처리와 충돌하지 않도록 먼저 추출한다.
+ * extend/mmb.lib.php 의 autolink() "일반링크 설정"을 참고해 동일한 표기(Link URL)로 통일한다.
+ *
+ * @param string $content htmlspecialchars 적용된 문자열
+ * @param array $placeholders 참조로 전달되는 '플레이스홀더 => <a> HTML' 맵
+ * @return string 플레이스홀더로 치환된 문자열
+ */
+function timeline_extract_autolink_urls($content, &$placeholders) {
+    if ($content === '' || $content === null) {
+        return $content;
+    }
+
+    $i = 0;
+
+    return preg_replace_callback(
+        '/https?:\/\/[^\s<>]+/i',
+        function ($m) use (&$placeholders, &$i) {
+            $url = $m[0];
+            $trail = '';
+
+            // URL 끝에 붙은 문장부호/마크다운 기호는 링크 밖으로 분리한다 (짝이 맞는 괄호는 유지)
+            while ($url !== '') {
+                $last = substr($url, -1);
+                if ($last === ')' && substr_count($url, '(') >= substr_count($url, ')')) {
+                    break;
+                }
+                if (strpos(".,!?;:'\")]}*", $last) === false) {
+                    break;
+                }
+                $trail = $last.$trail;
+                $url = substr($url, 0, -1);
+            }
+
+            if ($url === '') {
+                return $m[0];
+            }
+
+            $key = "\x1E".'TLURL'.$i."\x1E";
+            $placeholders[$key] = '<a href="'.$url.'" target="_blank" rel="noopener noreferrer" class="other-site-link">Link URL</a>';
+            $i++;
+
+            return $key.$trail;
+        },
+        $content
+    );
 }
 
 /**

@@ -527,6 +527,15 @@
     text-decoration: underline;
 }
 
+.tl-content a.other-site-link {
+    color: var(--tl-accent);
+    text-decoration: underline;
+}
+
+.tl-content a.other-site-link:hover {
+    text-decoration: none;
+}
+
 .tl-image {
     margin-bottom: 10px;
 }

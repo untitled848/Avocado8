@@ -806,6 +806,16 @@
     text-decoration: underline;
 }
 
+/* 일반 링크(URL) */
+.tl-content a.other-site-link {
+    color: var(--tl-like);
+    text-decoration: underline;
+}
+
+.tl-content a.other-site-link:hover {
+    text-decoration: none;
+}
+
 /* 주사위 결과 */
 .tl-dice-result {
     display: inline-flex;
