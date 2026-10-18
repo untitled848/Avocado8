@@ -63,8 +63,6 @@ html:before {
     html.single:before, html:before {
         <?php if (!empty($css['page_bg_mobile'][0])): ?>
         background-image: url('<?php echo $css['page_bg_mobile'][0]; ?>') !important;
-        <?php else: ?>
-        background-image: none !important;
         <?php endif; ?>
         <?php if (!empty($css['page_bg_mobile'][1])): ?>background-color: <?php echo $css['page_bg_mobile'][1]; ?> !important;<?php endif; ?>
         <?php if (!empty($css['page_bg_mobile'][2])): ?>background-repeat: <?php echo $css['page_bg_mobile'][2]; ?> !important;<?php endif; ?>
