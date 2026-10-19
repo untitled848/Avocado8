@@ -21,14 +21,14 @@ if ($_has_bgm) :
         <?php $equal_count = 30; while ($equal_count > 0) { echo "<i></i>"; $equal_count--; } ?>
     </div>
     <ul>
-        <li>
+        <li style="min-width:27px;">
             <a href="<?php echo G5_URL; ?>/bgm.php?action=play" target="bgm_frame" class="play" onclick="return fn_control_bgm('play')">재생</a>
         </li>
-        <li>
+        <li style="min-width:27px;">
             <a href="<?php echo G5_URL; ?>/bgm.php" target="bgm_frame" class="stop" onclick="return fn_control_bgm('stop')">정지</a>
         </li>
         <li class="bgm-vol">
-            <label title="볼륨" style="display:inline-flex;align-items:center;gap:4px;font-size:11px;">
+            <label title="볼륨" style="display:flex;align-items:center;gap:4px;font-size:11px;">
                 <span class="bgm-vol-icon" aria-hidden="true">♪</span>
                 <input type="range" min="0" max="100" step="1" value="<?php echo $_init_vol; ?>" class="bgm-vol-slider" oninput="fn_bgm_volume(this.value)" style="vertical-align:middle;">
             </label>
@@ -59,7 +59,7 @@ function fn_control_bgm(state) {
 }
 function fn_bgm_volume(v) {
     try {
-        var fr = document.getElementsByName('bgm_frame')[0];
+        var fr = window.parent.document.getElementsByName('bgm_frame')[0];
         if (fr && fr.contentWindow) {
             fr.contentWindow.postMessage({ bgm:'volume', value: parseInt(v,10) }, '*');
         }
